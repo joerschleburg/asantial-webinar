@@ -211,46 +211,6 @@
     color: var(--text-muted); background: rgba(37,23,42,0.03);
   }
 
-  /* ── Tag background glow effect ── */
-  .slide.dark .tag {
-    position: relative;
-    z-index: 1;
-  }
-  .slide.dark .tag::before {
-    content: '';
-    position: absolute;
-    inset: -8px -12px;
-    border-radius: 100px;
-    background: radial-gradient(ellipse at 50% 50%, rgba(163,160,255,0.5), rgba(212,196,238,0.2) 60%, transparent 80%);
-    filter: blur(12px);
-    opacity: 0;
-    z-index: -1;
-    transition: opacity 0.6s ease;
-  }
-  .slide.dark .tag.tag-glow::before {
-    animation: tag-glow-bg 2.5s ease-in-out;
-    animation-delay: var(--shimmer-delay, 0s);
-  }
-  @keyframes tag-glow-bg {
-    0%, 100% { opacity: 0; transform: scale(0.7); }
-    40%, 60% { opacity: 1; transform: scale(1.1); }
-  }
-
-  /* ── Typewriter cursor ── */
-  .typewriter-cursor {
-    display: inline-block;
-    width: 3px;
-    height: 1em;
-    background: var(--purple);
-    margin-left: 4px;
-    vertical-align: text-bottom;
-    animation: cursor-blink 0.7s step-end infinite;
-  }
-  @keyframes cursor-blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-
   /* ═══════════════════════════════════════
      CALENDAR ENTRIES – BIG, one-per-click
      ═══════════════════════════════════════ */
@@ -732,8 +692,7 @@
      ═══════════════════════════════════════ */
   .cards-3 {
     display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 24px; width: 100%;
-    justify-self: center;
+    gap: 24px; max-width: 1000px; width: 100%;
   }
   .card {
     background: white;
@@ -741,186 +700,8 @@
     border-radius: 20px; padding: 32px 28px;
     transition: all 0.3s ease;
     box-shadow: 0 2px 12px rgba(37,23,42,0.04);
-    display: flex; flex-direction: column;
   }
   .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(37,23,42,0.08); }
-
-  /* Terminal prompt in cards */
-  .card-terminal {
-    margin-top: auto;
-    padding-top: 16px;
-    border-top: 1px solid var(--border-light);
-    margin-top: 16px;
-  }
-  .card-terminal-inner {
-    background: var(--ink);
-    border-radius: 10px;
-    padding: 16px 18px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.82rem;
-    line-height: 1.7;
-    color: #c8c4f0;
-    overflow: hidden;
-    height: 140px;
-    position: relative;
-  }
-  .card-terminal-inner::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 40px;
-    background: linear-gradient(transparent, var(--ink));
-    pointer-events: none;
-  }
-  .card-terminal-inner::before {
-    content: '> PROMPT';
-    display: block;
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: var(--purple);
-    margin-bottom: 8px;
-  }
-  .card-terminal-scroll {
-    animation: terminal-scroll 8s linear infinite;
-  }
-  .card-terminal-text {
-    white-space: nowrap;
-    display: block;
-    color: #e0dcff;
-  }
-
-  @keyframes terminal-scroll {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-50%); }
-  }
-
-  /* Trust dots with glow pulse */
-  .trust-dot {
-    width: 14px; height: 14px;
-    border-radius: 50%;
-    background: #5cc75c;
-    display: inline-block;
-    box-shadow: 0 0 8px rgba(92,199,92,0.6), 0 0 20px rgba(92,199,92,0.3);
-    animation: trust-pulse 2s ease-in-out infinite;
-  }
-  .trust-dot:nth-child(1) { animation-delay: 0s; }
-
-  @keyframes trust-pulse {
-    0%, 100% { box-shadow: 0 0 8px rgba(92,199,92,0.5), 0 0 20px rgba(92,199,92,0.2); transform: scale(1); }
-    50% { box-shadow: 0 0 20px rgba(92,199,92,1), 0 0 40px rgba(92,199,92,0.5), 0 0 60px rgba(92,199,92,0.2); transform: scale(1.15); }
-  }
-
-  /* ═══ APP TILES ═══ */
-  .app-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-auto-rows: 1fr;
-    gap: 12px;
-    width: 100%;
-  }
-  /* Entry animation - tiles start hidden, fly in when slide is active */
-  .app-tile {
-    opacity: 0;
-    transform: translateY(30px) scale(0.9);
-  }
-  .slide.active .app-tile {
-    animation: tile-enter 0.5s cubic-bezier(0.22,1,0.36,1) forwards, tile-breathe 4s ease-in-out 3s infinite;
-  }
-  @keyframes tile-enter {
-    from { opacity: 0; transform: translateY(30px) scale(0.9); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-  /* Stagger entry for each tile */
-  .slide.active .app-tile:nth-child(1) { animation-delay: 0.05s, 3s; }
-  .slide.active .app-tile:nth-child(2) { animation-delay: 0.1s, 3.1s; }
-  .slide.active .app-tile:nth-child(3) { animation-delay: 0.15s, 3.2s; }
-  .slide.active .app-tile:nth-child(4) { animation-delay: 0.2s, 3.3s; }
-  .slide.active .app-tile:nth-child(5) { animation-delay: 0.25s, 3.4s; }
-  .slide.active .app-tile:nth-child(6) { animation-delay: 0.3s, 3.5s; }
-  .slide.active .app-tile:nth-child(7) { animation-delay: 0.35s, 3.6s; }
-  .slide.active .app-tile:nth-child(8) { animation-delay: 0.4s, 3.7s; }
-  .slide.active .app-tile:nth-child(9) { animation-delay: 0.45s, 3.8s; }
-  .slide.active .app-tile:nth-child(10) { animation-delay: 0.5s, 3.9s; }
-  .slide.active .app-tile:nth-child(11) { animation-delay: 0.55s, 4.0s; }
-  .slide.active .app-tile:nth-child(12) { animation-delay: 0.6s, 4.1s; }
-  .slide.active .app-tile:nth-child(13) { animation-delay: 0.65s, 4.2s; }
-  .slide.active .app-tile:nth-child(14) { animation-delay: 0.7s, 4.3s; }
-  .slide.active .app-tile:nth-child(15) { animation-delay: 0.75s, 4.4s; }
-  .slide.active .app-tile:nth-child(16) { animation-delay: 0.8s, 4.5s; }
-  .slide.active .app-tile:nth-child(17) { animation-delay: 0.85s, 4.6s; }
-  .slide.active .app-tile:nth-child(18) { animation-delay: 0.9s, 4.7s; }
-  .slide.active .app-tile:nth-child(19) { animation-delay: 0.95s, 4.8s; }
-  .slide.active .app-tile:nth-child(20) { animation-delay: 1.0s, 4.9s; }
-  .slide.active .app-tile:nth-child(21) { animation-delay: 1.05s, 5.0s; }
-  .slide.active .app-tile:nth-child(22) { animation-delay: 1.1s, 5.1s; }
-  .slide.active .app-tile:nth-child(23) { animation-delay: 1.15s, 5.2s; }
-  .slide.active .app-tile:nth-child(24) { animation-delay: 1.2s, 5.3s; }
-  .slide.active .app-tile:nth-child(25) { animation-delay: 1.25s, 5.4s; }
-  .slide.active .app-tile:nth-child(26) { animation-delay: 1.3s, 5.5s; }
-  .slide.active .app-tile:nth-child(27) { animation-delay: 1.35s, 5.6s; }
-  .slide.active .app-tile:nth-child(28) { animation-delay: 1.4s, 5.7s; }
-
-  /* Breathing after entry */
-  @keyframes tile-breathe {
-    0%, 100% { opacity: 0.55; transform: translateY(0) scale(1); }
-    50% { opacity: 1; transform: translateY(0) scale(1); }
-  }
-  .app-tile:hover { opacity: 1 !important; animation-play-state: paused; }
-  .app-tile {
-    background: white;
-    border: 1px solid var(--border-light);
-    border-radius: 12px;
-    padding: 16px 14px 18px;
-    position: relative;
-    transition: all 0.25s ease;
-    box-shadow: 0 2px 8px rgba(37,23,42,0.05);
-  }
-  .app-tile:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(37,23,42,0.1);
-  }
-  .app-tile__cat {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .app-tile__name {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    line-height: 1.3;
-  }
-  .app-tile--premium::after {
-    content: 'PRO';
-    position: absolute;
-    top: 8px; right: 8px;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.45rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    padding: 2px 6px;
-    border-radius: 4px;
-    background: var(--ink);
-    color: var(--cream);
-  }
-  .app-tile--analyse .app-tile__cat { color: #5b8def; }
-  .app-tile--analyse { border-top: 2px solid #5b8def; }
-  .app-tile--strategie .app-tile__cat { color: var(--purple-mid); }
-  .app-tile--strategie { border-top: 2px solid var(--purple-mid); }
-  .app-tile--umsetzung .app-tile__cat { color: #e8a040; }
-  .app-tile--umsetzung { border-top: 2px solid #e8a040; }
-  .app-tile--komm .app-tile__cat { color: #27ae60; }
-  .app-tile--komm { border-top: 2px solid #27ae60; }
-  .app-tile--forschung .app-tile__cat { color: #e85d5d; }
-  .app-tile--forschung { border-top: 2px solid #e85d5d; }
-  .app-tile--controlling .app-tile__cat { color: #3498db; }
-  .app-tile--controlling { border-top: 2px solid #3498db; }
-
   .card h3 {
     font-size: clamp(1.1rem, 1.8vw, 1.4rem);
     margin-bottom: 10px; color: var(--text-dark);
@@ -1344,58 +1125,18 @@
        SLIDE 0: TITEL (DARK)
        ═══════════════════════════════════════════ -->
   <div class="slide dark active" data-slide="0" style="background:var(--ink);">
-    <div style="position:absolute;inset:-10%;width:120%;height:120%;background:url('iStock-2217889152.jpg') center/cover no-repeat;opacity:0.25;z-index:0;"></div>
+    <div style="position:absolute;inset:0;background:url('thisisengineering-TXxiFuQLBKQ-unsplash.jpg') center/cover no-repeat;opacity:0.25;z-index:0;"></div>
     <div class="glow glow-purple"></div>
     <div class="glow glow-blue"></div>
     <div class="slide-content stagger">
       <p class="label">Live-Webinar &middot; 1. April 2026</p>
-      <h1 id="typewriter-h1" style="visibility:hidden;min-height:2.3em;">Warum gute HR-Arbeit<br>oft wirkungslos bleibt</h1>
+      <h1>Warum gute HR-Arbeit<br>oft wirkungslos bleibt</h1>
       <div class="divider"></div>
       <p class="subtitle">45 Minuten, die erkl&auml;ren, warum das Problem<br>nicht an dir liegt. Und was du dagegen tun kannst.</p>
       <div class="tag-row">
-        <span class="tag" style="--shimmer-delay:0.5s;">45 Min + Q&amp;A</span>
-        <span class="tag" style="--shimmer-delay:1.2s;">Kostenlos</span>
-        <span class="tag" style="--shimmer-delay:1.9s;">Take-aways</span>
-      </div>
-    </div>
-  </div>
+        <span class="tag">45 Min + Q&amp;A</span>
 
-  <!-- ═══ SLIDE: Speaker Intro ═══ -->
-  <div class="slide dark" data-slide="speaker" style="padding:0;">
-    <div style="position:absolute;inset:0;display:grid;grid-template-columns:2fr 3fr;z-index:1;">
-      <!-- Foto -->
-      <div style="position:relative;overflow:hidden;">
-        <img src="nano-banana-2025-11-21T15-26-31-VSCO.jpg" alt="J&ouml;rg Schleburg" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
-        <div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,var(--ink) 100%);"></div>
-      </div>
-      <!-- Inhalt -->
-      <div style="display:flex;flex-direction:column;justify-content:center;padding:60px 72px;">
-        <p class="label" style="color:var(--purple);">Dein Gastgeber</p>
-        <h1 style="color:var(--cream);text-align:left;margin-bottom:4px;font-size:clamp(2.2rem,4.5vw,3.8rem);">J&ouml;rg Schleburg</h1>
-        <p style="font-family:'Inter',sans-serif;font-size:0.95rem;color:rgba(247,245,240,0.5);margin-bottom:24px;">Gr&uuml;nder VonVorteil e.K. und ASANTIAL</p>
-        <div class="quote" style="text-align:left;font-size:clamp(1.1rem,2vw,1.5rem);line-height:1.4;color:var(--lavender);margin-bottom:24px;max-width:none;">Employer Branding braucht kein neues Versprechen.<br>Es braucht eine Struktur, die h&auml;lt.</div>
-        <!-- Stats -->
-        <div style="display:flex;gap:40px;margin-bottom:32px;">
-          <div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(2rem,3.5vw,2.8rem);color:var(--cream);">15+</div>
-            <div style="font-family:'Inter',sans-serif;font-size:0.8rem;color:rgba(247,245,240,0.45);">Jahre EB-Erfahrung</div>
-          </div>
-          <div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(2rem,3.5vw,2.8rem);color:var(--cream);">100+</div>
-            <div style="font-family:'Inter',sans-serif;font-size:0.8rem;color:rgba(247,245,240,0.45);">Projekte im Mittelstand</div>
-          </div>
-        </div>
-        <!-- Medienlogos -->
-        <div style="border-top:1px solid rgba(247,245,240,0.1);padding-top:20px;">
-          <p style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(247,245,240,0.3);margin-bottom:14px;">Bekannt aus</p>
-          <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
-            <span style="font-family:'Inter',sans-serif;font-weight:800;font-size:1rem;color:rgba(247,245,240,0.5);letter-spacing:0.02em;">MOMA</span>
-            <span style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.85rem;color:rgba(247,245,240,0.5);">ZDF heute</span>
-            <span style="font-family:'Inter',sans-serif;font-weight:800;font-size:1rem;color:rgba(247,245,240,0.5);">BR</span>
-            <span style="font-family:'Inter',sans-serif;font-weight:800;font-size:1rem;color:rgba(247,245,240,0.5);letter-spacing:0.08em;">WELT</span>
-            <span style="font-family:'Inter',sans-serif;font-weight:800;font-size:0.9rem;color:rgba(247,245,240,0.5);">&raquo;SWR3</span>
-          </div>
-        </div>
+        <span class="tag">Kostenlos</span>
       </div>
     </div>
   </div>
@@ -1590,16 +1331,12 @@
     </div>
   </div>
 
-  <!-- ═══ SLIDE: Mikro-Interaktion nach Verlegenheitsfalle ═══ -->
-  <div class="slide dark" data-slide="micro-interact1" style="padding:0;overflow:hidden;">
-    <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.35;">
-      <source src="istockphoto-2170405551-640_adpp_is.mp4" type="video/mp4">
-    </video>
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(37,23,42,0.5) 0%,rgba(37,23,42,0.85) 100%);z-index:1;"></div>
-    <div class="slide-content stagger" style="position:relative;z-index:2;">
-      <p class="label">Kurze Frage in den Chat</p>
-      <h2>Was ist eure gr&ouml;&szlig;te<br>Employer-Branding-Herausforderung?</h2>
-      <p class="subtitle" style="margin-top:16px;">Ein Wort reicht.</p>
+  <!-- ═══ SLIDE: Situationen Headline ═══ -->
+  <div class="slide" data-slide="sit-intro">
+    <div class="slide-content stagger">
+      <p class="label">Warum gute Arbeit verpufft</p>
+      <h1>7 Situationen,<br>die du kennst</h1>
+      <p class="subtitle">Keine Theorie &ndash; nur das, was wir da drau&szlig;en immer wieder sehen.</p>
     </div>
   </div>
 
@@ -1630,6 +1367,50 @@
     <div class="slide-content">
       <div class="sit-single">
         <div class="sit-single-num">03</div>
+        <div class="sit-single-scenario">Die Agentur liefert Konzepte, du musst sie intern verteidigen &ndash; vor allem, weil es Geld und Zeit kostet. Ohne eigenes, tragf&auml;higes System.</div>
+        <div class="sit-single-title">&rarr; Agentur-Abh&auml;ngigkeit</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Situation 4 ═══ -->
+  <div class="slide" data-slide="sit4">
+    <div class="slide-content">
+      <div class="sit-single">
+        <div class="sit-single-num">04</div>
+        <div class="sit-single-scenario">Projekt abgeschlossen, aber im Alltag greift wenig davon. Das Ergebnis verpufft &ndash; Frustration und Sinnverlust bleiben.</div>
+        <div class="sit-single-title">&rarr; Der Projekt-Kater</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Situation 5 ═══ -->
+  <div class="slide" data-slide="sit5">
+    <div class="slide-content">
+      <div class="sit-single">
+        <div class="sit-single-num">05</div>
+        <div class="sit-single-scenario">Du moderierst, koordinierst, erkl&auml;rst &ndash; entscheidest aber selten wirklich. Verantwortung ohne Handlungsmacht.</div>
+        <div class="sit-single-title">&rarr; Rollendiffusion</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Situation 6 ═══ -->
+  <div class="slide" data-slide="sit6">
+    <div class="slide-content">
+      <div class="sit-single">
+        <div class="sit-single-num">06</div>
+        <div class="sit-single-scenario">Projekt startet mit Energie. Nach ein paar Wochen: Momentum weg, niemand h&auml;lt nach. Frustration und das Gef&uuml;hl von Verschwendung.</div>
+        <div class="sit-single-title">&rarr; Die Initiative, die im Sand verl&auml;uft</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Situation 7 ═══ -->
+  <div class="slide" data-slide="sit7">
+    <div class="slide-content">
+      <div class="sit-single">
+        <div class="sit-single-num">07</div>
         <div class="sit-single-scenario">Ende des Tages: &bdquo;Viel gearbeitet, aber nichts abgeschlossen.&ldquo; Emotionale Ersch&ouml;pfung durch fehlende Koh&auml;renz.</div>
         <div class="sit-single-title">&rarr; Der stille Ersch&ouml;pfungs-Moment</div>
       </div>
@@ -1644,7 +1425,7 @@
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(37,23,42,0.5) 0%,rgba(37,23,42,0.85) 100%);z-index:1;"></div>
     <div class="slide-content stagger" style="position:relative;z-index:2;">
       <p class="label">Deine Erfahrung</p>
-      <h2>Jetzt mal ehrlich:<br>Welche dieser Situationen<br>kennst du am besten?</h2>
+      <h2>Jetzt mal ehrlich:<br>Welche dieser 7 Situationen<br>kennst du am besten?</h2>
     </div>
   </div>
 
@@ -1744,21 +1525,21 @@
     </div>
   </div>
 
-  <!-- ═══ SLIDE: Konsequenz ═══ -->
-  <div class="slide dark" data-slide="konsequenz">
-    <div class="glow glow-purple"></div>
-    <div class="glow glow-blue"></div>
+  <!-- ═══ SLIDE 12: Entlastung (DARK) ═══ -->
+  <div class="slide dark" data-slide="12">
+    <div class="glow glow-lavender"></div>
     <div class="slide-content stagger">
-      <p class="label">Die Konsequenz</p>
-      <h1>Was kostet es euch,<br>wenn sich in den n&auml;chsten<br>12 Monaten nichts &auml;ndert?</h1>
+      <p class="label">Entlastung</p>
+      <div class="quote">&bdquo;Du machst nichts falsch.<br>Das System ist falsch aufgesetzt.&ldquo;</div>
     </div>
   </div>
 
-  <!-- ═══ SLIDE 13: Transformation ═══ -->
+  <!-- ═══ SLIDE 13: Transformation Headline ═══ -->
   <div class="slide" data-slide="13">
     <div class="slide-content stagger">
       <p class="label">Transformation</p>
-      <h1>So k&ouml;nnte es stattdessen sein.</h1>
+      <h1>So k&ouml;nnte es sein.</h1>
+      <p class="subtitle">Von der Realit&auml;t, die du kennst &ndash;<br>zu der, die m&ouml;glich ist.</p>
     </div>
   </div>
 
@@ -1826,51 +1607,29 @@
   </div>
 
   <!-- ═══ SLIDE 16: Machbar ═══ -->
-  <div class="slide dark" data-slide="16" style="overflow:hidden;">
-    <div style="position:absolute;inset:0;background:url('iStock-2258949603.jpg') center/cover no-repeat;opacity:0.5;z-index:0;"></div>
-    <div class="glow glow-purple"></div>
-    <div class="glow glow-blue"></div>
-    <div class="slide-content stagger" style="max-width:1200px;">
-      <p class="label">Der Wendepunkt</p>
-      <h1 style="margin-bottom:8px;">Das ist keine Fantasie.</h1>
-      <p class="subtitle" style="margin-bottom:48px;">Das ist machbar. Aber es braucht drei Dinge:</p>
-      <div class="wendepunkt-cards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;width:100%;">
-        <!-- Klarheit -->
-        <div class="wendepunkt-card" data-wp="0" style="display:flex;gap:16px;align-items:flex-start;padding:44px 36px 48px;border-radius:20px;background:rgba(247,245,240,0.1);border:1px solid rgba(212,196,238,0.25);backdrop-filter:blur(10px);opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.22,1,0.36,1);">
-          <div style="min-width:4px;align-self:stretch;background:var(--purple);border-radius:4px;"></div>
-          <div>
-            <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(3rem,5.5vw,4.5rem);color:rgba(247,245,240,0.25);line-height:1;margin-bottom:12px;">01</div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.8rem,3.2vw,2.6rem);color:var(--cream);margin-bottom:14px;">Klarheit</div>
-            <div style="font-family:'Inter',sans-serif;font-size:clamp(1rem,1.5vw,1.2rem);font-weight:300;color:rgba(247,245,240,0.6);line-height:1.6;">Ein strategisches Fundament, das jede Entscheidung leitet.</div>
-          </div>
+  <div class="slide" data-slide="16">
+    <div class="slide-content stagger">
+      <h2>Das ist keine Fantasie.</h2>
+      <p class="strong-line" style="margin-bottom:48px;">Das ist machbar. Aber es braucht drei Dinge:</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:960px;width:100%;">
+        <div style="text-align:center;">
+          <div style="font-size:2.8rem;margin-bottom:16px;">🎯</div>
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.3rem,2.2vw,1.8rem);color:var(--text-dark);margin-bottom:8px;">Klarheit</div>
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(0.85rem,1.2vw,1rem);font-weight:300;color:var(--text-muted);line-height:1.6;">Ein strategisches Fundament,<br>das jede Entscheidung leitet.</div>
         </div>
-        <!-- Kontinuit&auml;t -->
-        <div class="wendepunkt-card" data-wp="1" style="display:flex;gap:16px;align-items:flex-start;padding:44px 36px 48px;border-radius:20px;background:rgba(247,245,240,0.1);border:1px solid rgba(212,196,238,0.25);backdrop-filter:blur(10px);opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.22,1,0.36,1);">
-          <div style="min-width:4px;align-self:stretch;background:var(--lavender);border-radius:4px;"></div>
-          <div>
-            <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(3rem,5.5vw,4.5rem);color:rgba(247,245,240,0.25);line-height:1;margin-bottom:12px;">02</div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.8rem,3.2vw,2.6rem);color:var(--cream);margin-bottom:14px;">Kontinuit&auml;t</div>
-            <div style="font-family:'Inter',sans-serif;font-size:clamp(1rem,1.5vw,1.2rem);font-weight:300;color:rgba(247,245,240,0.6);line-height:1.6;">Kein Projektmodus, sondern ein laufendes System.</div>
-          </div>
+        <div style="text-align:center;">
+          <div style="font-size:2.8rem;margin-bottom:16px;">🔄</div>
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.3rem,2.2vw,1.8rem);color:var(--text-dark);margin-bottom:8px;">Kontinuit&auml;t</div>
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(0.85rem,1.2vw,1rem);font-weight:300;color:var(--text-muted);line-height:1.6;">Kein Projektmodus, sondern<br>ein laufendes System.</div>
         </div>
-        <!-- Kontrolle -->
-        <div class="wendepunkt-card" data-wp="2" style="display:flex;gap:16px;align-items:flex-start;padding:44px 36px 48px;border-radius:20px;background:rgba(247,245,240,0.1);border:1px solid rgba(212,196,238,0.25);backdrop-filter:blur(10px);opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.22,1,0.36,1);">
-          <div style="min-width:4px;align-self:stretch;background:var(--blue-sky);border-radius:4px;"></div>
-          <div>
-            <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(3rem,5.5vw,4.5rem);color:rgba(247,245,240,0.25);line-height:1;margin-bottom:12px;">03</div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.8rem,3.2vw,2.6rem);color:var(--cream);margin-bottom:14px;">Kontrolle</div>
-            <div style="font-family:'Inter',sans-serif;font-size:clamp(1rem,1.5vw,1.2rem);font-weight:300;color:rgba(247,245,240,0.6);line-height:1.6;">Du steuerst den Prozess &ndash; statt getrieben zu werden.</div>
-          </div>
+        <div style="text-align:center;">
+          <div style="font-size:2.8rem;margin-bottom:16px;">🎛️</div>
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.3rem,2.2vw,1.8rem);color:var(--text-dark);margin-bottom:8px;">Kontrolle</div>
+          <div style="font-family:'Inter',sans-serif;font-size:clamp(0.85rem,1.2vw,1rem);font-weight:300;color:var(--text-muted);line-height:1.6;">Du steuerst den Prozess &ndash;<br>statt getrieben zu werden.</div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- ═══ SLIDE: Betriebssystem-Conclusio ═══ -->
-  <div class="slide dark" data-slide="betriebssystem" style="overflow:hidden;">
-    <div class="glow glow-lavender"></div>
-    <div class="slide-content stagger">
-      <h1>Daf&uuml;r braucht es ein<br><span class="highlight">Betriebssystem</span>.</h1>
+      <div class="divider" style="margin:36px auto 20px;"></div>
+      <p class="strong-line">Daf&uuml;r braucht es ein <span class="highlight">Betriebssystem</span>.</p>
     </div>
   </div>
 
@@ -1888,230 +1647,184 @@
 
   <!-- ═══ SLIDE KI-1: Nutze KI ═══ -->
   <div class="slide" data-slide="ki1">
-    <div class="slide-content stagger" style="align-items:center;max-width:1100px;">
+    <div class="slide-content stagger">
       <p class="label">Sofort umsetzbar</p>
-      <h2>Ein erster Schritt, den du heute gehen kannst</h2>
-      <p class="subtitle" style="margin-bottom:32px;max-width:100%;white-space:nowrap;">KI kann dir helfen &ndash; auch ohne Budget, ohne Freigabe, ohne Agentur.</p>
+      <h2>Ein erster Schritt,<br>den du heute gehen kannst</h2>
+      <p class="subtitle" style="margin-bottom:32px;">KI kann dir helfen &ndash; auch ohne Budget, ohne Freigabe, ohne Agentur.</p>
       <div class="cards-3">
         <div class="card">
+          <div style="font-size:2rem;margin-bottom:12px;">🎯</div>
           <h3>GF-Termine vorbereiten</h3>
-          <p>Argumente, Kennzahlen und Gespr&auml;chsstruktur f&uuml;r dein n&auml;chstes GF-Meeting.</p>
-          <div class="card-terminal">
-            <div class="card-terminal-inner">
-              <div class="card-terminal-scroll">
-                <span class="card-terminal-text">Du bist ein strategischer EB-Berater</span>
-                <span class="card-terminal-text">f&uuml;r mittelst&auml;ndische Unternehmen.</span>
-                <span class="card-terminal-text">Erstelle 5 Argumente f&uuml;r die GF,</span>
-                <span class="card-terminal-text">warum EB messbar auf Recruiting wirkt.</span>
-                <span class="card-terminal-text">Nutze aktuelle Benchmarks und KPIs.</span>
-                <span class="card-terminal-text">Strukturiere nach: Kosten, Zeit,</span>
-                <span class="card-terminal-text">Qualit&auml;t der Bewerbungen, Retention.</span>
-                <span class="card-terminal-text">Formuliere GF-tauglich: kurz, klar,</span>
-                <span class="card-terminal-text">ergebnisorientiert. Keine Buzzwords.</span>
-                <span class="card-terminal-text">Du bist ein strategischer EB-Berater</span>
-                <span class="card-terminal-text">f&uuml;r mittelst&auml;ndische Unternehmen.</span>
-                <span class="card-terminal-text">Erstelle 5 Argumente f&uuml;r die GF,</span>
-                <span class="card-terminal-text">warum EB messbar auf Recruiting wirkt.</span>
-                <span class="card-terminal-text">Nutze aktuelle Benchmarks und KPIs.</span>
-                <span class="card-terminal-text">Strukturiere nach: Kosten, Zeit,</span>
-                <span class="card-terminal-text">Qualit&auml;t der Bewerbungen, Retention.</span>
-                <span class="card-terminal-text">Formuliere GF-tauglich: kurz, klar,</span>
-                <span class="card-terminal-text">ergebnisorientiert. Keine Buzzwords.</span>
-              </div>
-            </div>
-          </div>
+          <p>Lass dir Argumente, Kennzahlen und Gespr&auml;chsstruktur f&uuml;r dein n&auml;chstes GF-Meeting generieren.</p>
         </div>
         <div class="card">
+          <div style="font-size:2rem;margin-bottom:12px;">🗺️</div>
           <h3>Roadmap in Minuten</h3>
-          <p>Eine EB-Roadmap f&uuml;r 6 Monate &ndash; strukturiert und nachvollziehbar.</p>
-          <div class="card-terminal">
-            <div class="card-terminal-inner">
-              <div class="card-terminal-scroll" style="animation-duration:9s;">
-                <span class="card-terminal-text">Erstelle eine 6-Monats-Roadmap f&uuml;r</span>
-                <span class="card-terminal-text">Employer Branding. Ber&uuml;cksichtige:</span>
-                <span class="card-terminal-text">- Meilensteine und Abh&auml;ngigkeiten</span>
-                <span class="card-terminal-text">- Zust&auml;ndigkeiten pro Workstream</span>
-                <span class="card-terminal-text">- Phasen: Analyse, Strategie, Launch</span>
-                <span class="card-terminal-text">- Budget-Indikationen pro Phase</span>
-                <span class="card-terminal-text">- Quick Wins in den ersten 4 Wochen</span>
-                <span class="card-terminal-text">- Exportformat: Excel-kompatibel</span>
-                <span class="card-terminal-text">- Risiken und Alternativpfade</span>
-                <span class="card-terminal-text">Erstelle eine 6-Monats-Roadmap f&uuml;r</span>
-                <span class="card-terminal-text">Employer Branding. Ber&uuml;cksichtige:</span>
-                <span class="card-terminal-text">- Meilensteine und Abh&auml;ngigkeiten</span>
-                <span class="card-terminal-text">- Zust&auml;ndigkeiten pro Workstream</span>
-                <span class="card-terminal-text">- Phasen: Analyse, Strategie, Launch</span>
-                <span class="card-terminal-text">- Budget-Indikationen pro Phase</span>
-                <span class="card-terminal-text">- Quick Wins in den ersten 4 Wochen</span>
-                <span class="card-terminal-text">- Exportformat: Excel-kompatibel</span>
-                <span class="card-terminal-text">- Risiken und Alternativpfade</span>
-              </div>
-            </div>
-          </div>
+          <p>Erstelle eine EB-Roadmap f&uuml;r die n&auml;chsten 6 Monate &ndash; strukturiert und nachvollziehbar.</p>
         </div>
         <div class="card">
+          <div style="font-size:2rem;margin-bottom:12px;">🧠</div>
           <h3>Dein EB-Berater</h3>
-          <p>Ein KI-Berater, der dir hilft die richtigen Entscheidungen zu treffen.</p>
-          <div class="card-terminal">
-            <div class="card-terminal-inner">
-              <div class="card-terminal-scroll" style="animation-duration:10s;">
-                <span class="card-terminal-text">Du bist mein EB-Sparringspartner.</span>
-                <span class="card-terminal-text">Stelle zuerst R&uuml;ckfragen, bevor du</span>
-                <span class="card-terminal-text">Empfehlungen gibst. Sei praxisnah.</span>
-                <span class="card-terminal-text">Trenne Annahmen klar von Fakten.</span>
-                <span class="card-terminal-text">Vermeide generische HR-Buzzwords.</span>
-                <span class="card-terminal-text">Beziehe dich nur auf meine Infos.</span>
-                <span class="card-terminal-text">Gib bei jeder Empfehlung an, welche</span>
-                <span class="card-terminal-text">Informationen du noch brauchst.</span>
-                <span class="card-terminal-text">Kontext: Mittelstand, 200 MA, kein</span>
-                <span class="card-terminal-text">Du bist mein EB-Sparringspartner.</span>
-                <span class="card-terminal-text">Stelle zuerst R&uuml;ckfragen, bevor du</span>
-                <span class="card-terminal-text">Empfehlungen gibst. Sei praxisnah.</span>
-                <span class="card-terminal-text">Trenne Annahmen klar von Fakten.</span>
-                <span class="card-terminal-text">Vermeide generische HR-Buzzwords.</span>
-                <span class="card-terminal-text">Beziehe dich nur auf meine Infos.</span>
-                <span class="card-terminal-text">Gib bei jeder Empfehlung an, welche</span>
-                <span class="card-terminal-text">Informationen du noch brauchst.</span>
-                <span class="card-terminal-text">Kontext: Mittelstand, 200 MA, kein</span>
-              </div>
-            </div>
+          <p>Prompte dir einen Employer Branding Berater, der dir hilft die richtigen Entscheidungen zu treffen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE KI-2: Prompt zum Mitnehmen ═══ -->
+  <div class="slide" data-slide="ki2">
+    <div class="slide-content stagger" style="max-width:1050px;">
+      <p class="label">Prompt zum Mitnehmen</p>
+      <h2 style="margin-bottom:24px;">Dein KI-gest&uuml;tzter EB-Berater</h2>
+      <div style="background:var(--ink);border-radius:20px;padding:36px 40px;width:100%;color:var(--cream);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:16px;right:20px;font-size:0.65rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--purple);opacity:0.7;">SYSTEM PROMPT</div>
+        <div style="display:flex;flex-direction:column;gap:20px;font-family:'Inter',sans-serif;font-size:clamp(0.82rem,1.2vw,0.95rem);line-height:1.7;color:rgba(247,245,240,0.85);">
+          <div>
+            <span style="color:var(--purple);font-weight:600;">System-Kontext:</span><br>
+            Du bist ein strategischer Employer Branding Berater f&uuml;r mittelst&auml;ndische Unternehmen (50&ndash;1.000 MA). Du arbeitest evidenzbasiert und unterscheidest klar zwischen operativen Ma&szlig;nahmen und strategischen Entscheidungen.
+          </div>
+          <div>
+            <span style="color:var(--purple);font-weight:600;">Regeln:</span><br>
+            &ndash; Stelle immer zuerst R&uuml;ckfragen, bevor du Empfehlungen gibst<br>
+            &ndash; Trenne Annahmen klar von Fakten. Wenn du etwas nicht wei&szlig;t, sag es<br>
+            &ndash; Vermeide generische HR-Buzzwords. Sei konkret und praxisnah<br>
+            &ndash; Beziehe dich nur auf Informationen, die ich dir gebe &ndash; erfinde keine Kennzahlen<br>
+            &ndash; Gib bei jeder Empfehlung an, welche Infos du noch br&auml;uchtest
+          </div>
+          <div>
+            <span style="color:var(--purple);font-weight:600;">Meine Situation:</span><br>
+            Ich bin HR-Verantwortliche/r und betreue Employer Branding neben meinen anderen Aufgaben. Wenig Budget, viele Stakeholder, muss Ergebnisse intern rechtfertigen.
+          </div>
+          <div>
+            <span style="color:var(--purple);font-weight:600;">Erste Aufgabe:</span><br>
+            Hilf mir, eine nachvollziehbare EB-Strategie zu entwickeln, die ich gegen&uuml;ber der GF vertreten kann. Starte mit den R&uuml;ckfragen, die du brauchst.
           </div>
         </div>
       </div>
-      <p style="margin-top:20px;font-size:clamp(0.85rem,1.1vw,0.95rem);color:var(--text-light);text-align:center;">
-        Alle Prompts bekommt ihr am Ende im Chat &ndash; zum Kopieren und sofort Loslegen.
+      <p style="margin-top:20px;font-size:clamp(0.9rem,1.3vw,1.05rem);color:var(--text-muted);text-align:center;">
+        💬 Diesen Prompt bekommt ihr am Ende des Webinars im Chat &ndash; zum Kopieren und sofort Loslegen.
       </p>
     </div>
   </div>
 
 
-
   <!-- ═══ SLIDE KI-3: Konklusion ═══ -->
-  <div class="slide ki3-slide" data-slide="ki3">
+  <div class="slide" data-slide="ki3">
     <div class="slide-content stagger">
       <p class="label">Die Konklusion</p>
-      <h2 style="margin-bottom:0;">Das funktioniert.<br>Aber es geht noch<br><span class="ki3-word" data-ki3="0" style="background:linear-gradient(180deg, transparent 55%, rgba(163,160,255,0.35) 55%, rgba(163,160,255,0.35) 90%, transparent 90%);padding:0 4px;opacity:0;transform:translateY(20px);display:inline-block;transition:all 0.6s cubic-bezier(0.22,1,0.36,1);">einfacher</span><span class="ki3-comma" style="opacity:0;transition:opacity 0.3s;">, </span><span class="ki3-word" data-ki3="1" style="background:linear-gradient(180deg, transparent 55%, rgba(163,160,255,0.35) 55%, rgba(163,160,255,0.35) 90%, transparent 90%);padding:0 4px;opacity:0;transform:translateY(20px);display:inline-block;transition:all 0.6s cubic-bezier(0.22,1,0.36,1);">besser</span><span class="ki3-comma" style="opacity:0;transition:opacity 0.3s;">, </span><span class="ki3-word" data-ki3="2" style="background:linear-gradient(180deg, transparent 55%, rgba(163,160,255,0.35) 55%, rgba(163,160,255,0.35) 90%, transparent 90%);padding:0 4px;opacity:0;transform:translateY(20px);display:inline-block;transition:all 0.6s cubic-bezier(0.22,1,0.36,1);">sicherer</span><span class="ki3-comma" style="opacity:0;transition:opacity 0.3s;">.</span></h2>
+      <div style="position:relative;display:inline-block;padding:20px 40px;">
+        <h2 style="margin-bottom:0;">Das funktioniert.<br>Aber es geht noch<br><span style="background:linear-gradient(180deg, transparent 55%, rgba(163,160,255,0.35) 55%, rgba(163,160,255,0.35) 90%, transparent 90%);padding:0 4px;">einfacher</span>, <span style="background:linear-gradient(180deg, transparent 55%, rgba(163,160,255,0.35) 55%, rgba(163,160,255,0.35) 90%, transparent 90%);padding:0 4px;">besser</span>, <span style="background:linear-gradient(180deg, transparent 55%, rgba(163,160,255,0.35) 55%, rgba(163,160,255,0.35) 90%, transparent 90%);padding:0 4px;">sicherer</span>.</h2>
+        <svg class="circle-draw" viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;left:-21%;top:-28%;width:142%;height:156%;pointer-events:none;">
+          <ellipse cx="50" cy="50" rx="47" ry="46" fill="none" stroke="var(--ink)" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="300" stroke-dashoffset="300" class="circle-loop"/>
+        </svg>
+      </div>
     </div>
   </div>
 
   <!-- ═══ SLIDE 17: ASANTIAL Intro ═══ -->
   <div class="slide" data-slide="17" style="background:linear-gradient(160deg, var(--cream) 0%, #f0ecf8 50%, var(--cream) 100%);">
-    <div class="slide-content stagger" style="max-width:1200px;align-items:center;">
-      <p class="label ah-anim" style="opacity:0;transform:translateY(20px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1);">Die L&ouml;sung</p>
-      <img src="Asantial-Logo-transparent.png" alt="ASANTIAL" class="ah-anim" style="height:clamp(80px,14vw,160px);margin-bottom:12px;opacity:0;transform:scale(1.3);transition:all 1.2s cubic-bezier(0.22,1,0.36,1) 0.2s;">
-      <p class="subtitle ah-anim" style="margin-bottom:40px;opacity:0;transform:translateY(20px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1) 0.8s;font-size:clamp(1.6rem,3vw,2.4rem);letter-spacing:0.02em;">Das Betriebssystem f&uuml;r Employer Branding</p>
-      <div class="divider ah-anim" style="opacity:0;transform:scaleX(0);transition:all 0.6s cubic-bezier(0.22,1,0.36,1) 1.2s;"></div>
-      <div class="ah-anim" style="display:flex;align-items:center;gap:32px;font-family:'Inter',sans-serif;font-size:clamp(1rem,1.5vw,1.2rem);color:var(--text-dark);margin-top:24px;opacity:0;transform:translateY(20px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1) 1.5s;font-weight:400;">
-        <div style="display:flex;align-items:center;gap:10px;"><span class="trust-dot"></span> DSGVO-konform</div>
-        <div style="width:1px;height:20px;background:var(--border-med);"></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span class="trust-dot"></span> KI-gest&uuml;tzt</div>
-        <div style="width:1px;height:20px;background:var(--border-med);"></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span class="trust-dot"></span> 15 Jahre EB-Expertise</div>
+    <div class="slide-content stagger" style="max-width:1200px;">
+      <p class="label">Die L&ouml;sung</p>
+      <img src="Asantial-Logo-transparent.png" alt="ASANTIAL" style="height:clamp(50px,8vw,80px);margin-bottom:8px;">
+      <p class="subtitle" style="margin-bottom:36px;">Das Betriebssystem f&uuml;r Employer Branding</p>
+
+      <!-- Mockup Screenshots -->
+      <div style="position:relative;width:100%;max-width:900px;height:clamp(280px,38vw,420px);margin-bottom:28px;">
+        <!-- Hinteres Mockup: Roadmap/Projektmanager -->
+        <div style="position:absolute;left:0;bottom:0;width:55%;background:white;border-radius:16px;box-shadow:0 12px 40px rgba(37,23,42,0.12);border:1px solid var(--border-light);padding:20px 24px;z-index:1;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-light);">
+            <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.85rem;color:var(--text-dark);">ASANTIAL</div>
+            <div style="font-family:'Inter',sans-serif;font-size:0.65rem;color:var(--text-light);">by VonVorteil</div>
+          </div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--purple-mid);margin-bottom:10px;">KI Apps</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-family:'Inter',sans-serif;font-size:0.82rem;">
+            <div style="padding:8px 12px;border-radius:8px;color:var(--text-muted);display:flex;align-items:center;gap:8px;"><span style="font-size:0.7rem;">&#9638;</span> App-Bibliothek</div>
+            <div style="padding:8px 12px;border-radius:8px;background:rgba(163,160,255,0.1);color:var(--text-dark);font-weight:600;display:flex;align-items:center;gap:8px;"><span style="color:var(--purple-mid);font-size:0.7rem;">&#9632;</span> Projektmanager</div>
+            <div style="padding:8px 12px;border-radius:8px;color:var(--text-muted);display:flex;align-items:center;gap:8px;"><span style="font-size:0.7rem;">&#9679;</span> Start-App</div>
+            <div style="padding:8px 12px;border-radius:8px;color:var(--text-muted);display:flex;align-items:center;gap:8px;"><span style="font-size:0.7rem;">&#9998;</span> Roadmap</div>
+          </div>
+          <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border-light);display:flex;align-items:center;gap:8px;">
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#8bc34a,#4caf50);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:0.55rem;color:white;">AS</div>
+            <span style="font-family:'Inter',sans-serif;font-size:0.78rem;color:var(--text-dark);">Annette Sch&ouml;n</span>
+          </div>
+        </div>
+
+        <!-- Vorderes Mockup: Start-App Chat -->
+        <div style="position:absolute;right:0;top:0;width:58%;background:white;border-radius:16px;box-shadow:0 16px 50px rgba(37,23,42,0.16);border:1px solid var(--border-light);padding:24px 28px;z-index:2;">
+          <div style="font-family:'Inter',sans-serif;font-size:0.7rem;color:var(--text-light);margin-bottom:4px;">Start- und Navigations-App</div>
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.1rem,2vw,1.5rem);color:var(--text-dark);margin-bottom:4px;">Hallo, Annette Sch&ouml;n</div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.85rem;color:var(--text-muted);margin-bottom:20px;">Wie kann ich dir heute helfen?</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+            <div style="padding:8px 16px;border:1px solid var(--border-med);border-radius:100px;font-family:'Inter',sans-serif;font-size:0.78rem;color:var(--text-dark);">Ich brauche Argumente f&uuml;r die GF</div>
+            <div style="padding:8px 16px;border:1px solid var(--border-med);border-radius:100px;font-family:'Inter',sans-serif;font-size:0.78rem;color:var(--text-dark);">Ich brauche Social Content</div>
+            <div style="padding:8px 16px;border:1px solid var(--border-med);border-radius:100px;font-family:'Inter',sans-serif;font-size:0.78rem;color:var(--text-dark);">Ich brauche eine EVP</div>
+            <div style="padding:8px 16px;border:1px solid var(--border-med);border-radius:100px;font-family:'Inter',sans-serif;font-size:0.78rem;color:var(--text-dark);">Hilfe vom Projektmanager</div>
+            <div style="padding:8px 16px;border:1px solid var(--border-med);border-radius:100px;font-family:'Inter',sans-serif;font-size:0.78rem;color:var(--text-dark);">Wie loslegen?</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#8bc34a,#4caf50);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:0.55rem;color:white;">AS</div>
+            <span style="font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;color:var(--text-dark);">Annette Sch&ouml;n</span>
+          </div>
+          <div style="padding:10px 16px;border:1px solid var(--border-light);border-radius:12px;font-family:'Inter',sans-serif;font-size:0.8rem;color:var(--text-light);">Hier eingeben...</div>
+        </div>
+      </div>
+
+      <!-- Trust Badges -->
+      <div style="display:flex;align-items:center;gap:24px;font-family:'Inter',sans-serif;font-size:clamp(0.8rem,1.1vw,0.95rem);color:var(--text-muted);">
+        <div style="display:flex;align-items:center;gap:8px;"><span style="width:10px;height:10px;border-radius:50%;background:#6abf69;display:inline-block;"></span> DSGVO-konform</div>
+        <div style="width:1px;height:16px;background:var(--border-med);"></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="width:10px;height:10px;border-radius:50%;background:#6abf69;display:inline-block;"></span> KI-gest&uuml;tzt</div>
+        <div style="width:1px;height:16px;background:var(--border-med);"></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="width:10px;height:10px;border-radius:50%;background:#6abf69;display:inline-block;"></span> 15 Jahre Employer Branding Expertise</div>
       </div>
     </div>
   </div>
-
-  <!-- ═══ SLIDE: Kundenstimmen ═══ -->
-  <div class="slide" data-slide="testimonials">
-    <div class="slide-content stagger">
-      <p class="label">Kundenstimmen</p>
-      <h2>Was HR-Experten sagen.</h2>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;width:100%;margin-top:-8px;">
-        <!-- Testimonial 1 -->
-        <div style="background:white;border:1px solid var(--border-light);border-radius:20px;padding:24px 28px 28px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 4px 20px rgba(37,23,42,0.06);">
-          <div>
-            <div style="font-family:'Fraunces',serif;font-size:2rem;color:var(--purple-mid);line-height:1;margin-bottom:4px;">&bdquo;</div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.25rem,2vw,1.65rem);color:var(--text-dark);line-height:1.3;margin-bottom:14px;">Die Bibliothek ist beeindruckend vielseitig.</div>
-            <div style="font-family:'Inter',sans-serif;font-size:clamp(0.85rem,1.2vw,1rem);font-weight:300;color:var(--text-muted);line-height:1.6;">So viele Apps, so abwechslungsreich, so durchdacht. ASANTIAL ist ein gro&szlig;er Werkzeugkasten f&uuml;r Profis.</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border-light);">
-            <div style="width:40px;min-width:40px;height:40px;min-height:40px;border-radius:50%;flex-shrink:0;aspect-ratio:1;background:linear-gradient(135deg,var(--purple),var(--lavender));display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:0.75rem;color:white;">RU</div>
-            <div>
-              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.85rem;color:var(--text-dark);">Robert Ullrich</div>
-              <div style="font-family:'Inter',sans-serif;font-weight:300;font-size:0.75rem;color:var(--text-muted);">Personalleiter &middot; Siteco GmbH &middot; Elektroindustrie</div>
-            </div>
-          </div>
-        </div>
-        <!-- Testimonial 2 -->
-        <div style="background:white;border:1px solid var(--border-light);border-radius:20px;padding:24px 28px 28px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 4px 20px rgba(37,23,42,0.06);">
-          <div>
-            <div style="font-family:'Fraunces',serif;font-size:2rem;color:var(--purple-mid);line-height:1;margin-bottom:4px;">&bdquo;</div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.25rem,2vw,1.65rem);color:var(--text-dark);line-height:1.3;margin-bottom:14px;">Eine komplette Jahresroadmap in einer Sitzung.</div>
-            <div style="font-family:'Inter',sans-serif;font-size:clamp(0.85rem,1.2vw,1rem);font-weight:300;color:var(--text-muted);line-height:1.6;">Alle Ma&szlig;nahmen, Abh&auml;ngigkeiten und Zeitr&auml;ume &ndash; fertig durchgeplant und als Excel exportiert. Wof&uuml;r man sonst Tage braucht, geht mit ASANTIAL in unter einer Stunde.</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border-light);">
-            <div style="width:40px;min-width:40px;height:40px;min-height:40px;border-radius:50%;flex-shrink:0;aspect-ratio:1;background:linear-gradient(135deg,#e85d5d,#f5c543);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:0.75rem;color:white;">FG</div>
-            <div>
-              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.85rem;color:var(--text-dark);">Fabian Girschick</div>
-              <div style="font-family:'Inter',sans-serif;font-weight:300;font-size:0.75rem;color:var(--text-muted);">Digital Content Manager &middot; Hochschule Neu-Ulm</div>
-            </div>
-          </div>
-        </div>
-        <!-- Testimonial 3 -->
-        <div style="background:white;border:1px solid var(--border-light);border-radius:20px;padding:24px 28px 28px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 4px 20px rgba(37,23,42,0.06);">
-          <div>
-            <div style="font-family:'Fraunces',serif;font-size:2rem;color:var(--purple-mid);line-height:1;margin-bottom:4px;">&bdquo;</div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.25rem,2vw,1.65rem);color:var(--text-dark);line-height:1.3;margin-bottom:14px;">&Uuml;berzeugt hat mich die Entscheidungsarchitektur hinter dem System.</div>
-            <div style="font-family:'Inter',sans-serif;font-size:clamp(0.85rem,1.2vw,1rem);font-weight:300;color:var(--text-muted);line-height:1.6;">Anfangs war ich skeptisch. Doch die Ergebnisse &uuml;berzeugten mich. ASANTIAL denkt in Wirkungsketten statt Kampagnendruck &ndash; genau das hat bisher gefehlt.</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border-light);">
-            <div style="width:40px;min-width:40px;height:40px;min-height:40px;border-radius:50%;flex-shrink:0;aspect-ratio:1;background:linear-gradient(135deg,var(--blue-sky),var(--purple));display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:0.75rem;color:white;">SM</div>
-            <div>
-              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.85rem;color:var(--text-dark);">Dr. Simon Mamerow</div>
-              <div style="font-family:'Inter',sans-serif;font-weight:300;font-size:0.75rem;color:var(--text-muted);">Wissenschaftler &middot; Mitentwickler ASANTIAL</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
   <!-- ═══ SLIDE: Was ASANTIAL macht ═══ -->
   <div class="slide" data-slide="asantial-was">
     <div class="slide-content stagger" style="max-width:1050px;">
       <p class="label">Was ASANTIAL macht</p>
-      <h2 style="margin-bottom:28px;">Sechs Dinge, die den<br>Unterschied machen.</h2>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 36px;width:100%;">
+      <h2 style="margin-bottom:40px;">Sechs Dinge, die den<br>Unterschied machen.</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px 40px;width:100%;">
         <div style="display:flex;align-items:flex-start;gap:16px;">
           <div style="min-width:44px;height:44px;border-radius:12px;background:var(--purple-dim);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:1rem;color:var(--purple-mid);">01</div>
           <div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.35rem,2.2vw,1.75rem);color:var(--text-dark);margin-bottom:4px;">Struktur, Klarheit und R&uuml;ckhalt</div>
+            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--text-dark);margin-bottom:4px;">Struktur, Klarheit und R&uuml;ckhalt</div>
             <div style="font-family:'Inter',sans-serif;font-size:clamp(0.8rem,1vw,0.88rem);font-weight:300;color:var(--text-muted);line-height:1.6;">Gibt HR die Grundlage, um fundiert zu entscheiden statt zu improvisieren.</div>
           </div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:16px;">
           <div style="min-width:44px;height:44px;border-radius:12px;background:var(--purple-dim);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:1rem;color:var(--purple-mid);">02</div>
           <div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.35rem,2.2vw,1.75rem);color:var(--text-dark);margin-bottom:4px;">Wirkung sichtbar und messbar</div>
+            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--text-dark);margin-bottom:4px;">Wirkung sichtbar und messbar</div>
             <div style="font-family:'Inter',sans-serif;font-size:clamp(0.8rem,1vw,0.88rem);font-weight:300;color:var(--text-muted);line-height:1.6;">Macht Employer Branding nachvollziehbar &ndash; f&uuml;r dich und f&uuml;r die GF.</div>
           </div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:16px;">
           <div style="min-width:44px;height:44px;border-radius:12px;background:var(--purple-dim);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:1rem;color:var(--purple-mid);">03</div>
           <div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.35rem,2.2vw,1.75rem);color:var(--text-dark);margin-bottom:4px;">Employer Branding auf dem n&auml;chsten Level</div>
+            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--text-dark);margin-bottom:4px;">Employer Branding auf dem n&auml;chsten Level</div>
             <div style="font-family:'Inter',sans-serif;font-size:clamp(0.8rem,1vw,0.88rem);font-weight:300;color:var(--text-muted);line-height:1.6;">Hebt EB von operativem Aktionismus auf strategische Wirksamkeit.</div>
           </div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:16px;">
           <div style="min-width:44px;height:44px;border-radius:12px;background:var(--purple-dim);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:1rem;color:var(--purple-mid);">04</div>
           <div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.35rem,2.2vw,1.75rem);color:var(--text-dark);margin-bottom:4px;">Guidance &uuml;ber den kompletten EB-Prozess</div>
+            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--text-dark);margin-bottom:4px;">Guidance &uuml;ber den kompletten EB-Prozess</div>
             <div style="font-family:'Inter',sans-serif;font-size:clamp(0.8rem,1vw,0.88rem);font-weight:300;color:var(--text-muted);line-height:1.6;">Von der Analyse &uuml;ber die Strategie bis zur Umsetzung &ndash; alles in einem System.</div>
           </div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:16px;">
           <div style="min-width:44px;height:44px;border-radius:12px;background:var(--purple-dim);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:1rem;color:var(--purple-mid);">05</div>
           <div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.35rem,2.2vw,1.75rem);color:var(--text-dark);margin-bottom:4px;">HR auf den Driver Seat</div>
+            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--text-dark);margin-bottom:4px;">HR auf den Driver Seat</div>
             <div style="font-family:'Inter',sans-serif;font-size:clamp(0.8rem,1vw,0.88rem);font-weight:300;color:var(--text-muted);line-height:1.6;">Nimmt an die Hand und gibt die Werkzeuge, um selbst zu steuern.</div>
           </div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:16px;">
           <div style="min-width:44px;height:44px;border-radius:12px;background:var(--purple-dim);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:1rem;color:var(--purple-mid);">06</div>
           <div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.35rem,2.2vw,1.75rem);color:var(--text-dark);margin-bottom:4px;">Unabh&auml;ngig von Agenturen</div>
+            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--text-dark);margin-bottom:4px;">Unabh&auml;ngig von Agenturen</div>
             <div style="font-family:'Inter',sans-serif;font-size:clamp(0.8rem,1vw,0.88rem);font-weight:300;color:var(--text-muted);line-height:1.6;">Kein Wissen, das mit der Agentur geht. Alles bleibt bei dir.</div>
           </div>
         </div>
@@ -2119,118 +1832,54 @@
     </div>
   </div>
 
-  <!-- ═══ SLIDE: Alle Apps ═══ -->
-  <div class="slide" data-slide="alle-apps" style="overflow:hidden;">
-    <div class="slide-content stagger" style="max-width:1300px;">
-      <p class="label">Die App-Bibliothek</p>
-      <h2 style="margin-bottom:8px;">28 spezialisierte Apps.</h2>
-      <p class="subtitle" style="margin-bottom:20px;font-size:clamp(0.9rem,1.3vw,1.05rem);">Alle Apps kennen deine EVP, Zielgruppen und deinen Style Guide. Du f&auml;ngst nie bei null an &ndash; und kommst in Minuten zu Ergebnissen, f&uuml;r die andere Tage, Wochen oder Monate brauchen.</p>
-      <div class="app-grid">
-        <div class="app-tile app-tile--analyse"><div class="app-tile__cat">Analyse</div><div class="app-tile__name">Arbeitsmarkt&shy;analyse</div></div>
-        <div class="app-tile app-tile--analyse"><div class="app-tile__cat">Analyse</div><div class="app-tile__name">Karriereseiten&shy;analyse</div></div>
-        <div class="app-tile app-tile--analyse"><div class="app-tile__cat">Analyse</div><div class="app-tile__name">Wettbewerbs&shy;analyse</div></div>
-        <div class="app-tile app-tile--analyse"><div class="app-tile__cat">Analyse</div><div class="app-tile__name">Zielgruppen&shy;insides</div></div>
-        <div class="app-tile app-tile--analyse app-tile--premium"><div class="app-tile__cat">Analyse</div><div class="app-tile__name">EVP-Analyse</div></div>
-        <div class="app-tile app-tile--strategie"><div class="app-tile__cat">Strategie</div><div class="app-tile__name">Start- &amp; Navi-App</div></div>
-        <div class="app-tile app-tile--strategie"><div class="app-tile__cat">Strategie</div><div class="app-tile__name">Kick-Off Workshop</div></div>
-        <div class="app-tile app-tile--strategie"><div class="app-tile__cat">Strategie</div><div class="app-tile__name">Kick-Off Auswertung</div></div>
-        <div class="app-tile app-tile--strategie app-tile--premium"><div class="app-tile__cat">Strategie</div><div class="app-tile__name">EVP-Entwicklung</div></div>
-        <div class="app-tile app-tile--strategie app-tile--premium"><div class="app-tile__cat">Strategie</div><div class="app-tile__name">Arbeitgeber&shy;claim</div></div>
-        <div class="app-tile app-tile--strategie app-tile--premium"><div class="app-tile__cat">Strategie</div><div class="app-tile__name">F&uuml;hrungs&shy;abgleich</div></div>
-        <div class="app-tile app-tile--strategie"><div class="app-tile__cat">Strategie</div><div class="app-tile__name">Positionierungs&shy;matrix</div></div>
-        <div class="app-tile app-tile--umsetzung"><div class="app-tile__cat">Umsetzung</div><div class="app-tile__name">Projekt&shy;manager</div></div>
-        <div class="app-tile app-tile--umsetzung"><div class="app-tile__cat">Umsetzung</div><div class="app-tile__name">Roadmap</div></div>
-        <div class="app-tile app-tile--umsetzung"><div class="app-tile__cat">Umsetzung</div><div class="app-tile__name">Kanal&shy;strategie</div></div>
-        <div class="app-tile app-tile--umsetzung"><div class="app-tile__cat">Umsetzung</div><div class="app-tile__name">Content-Planer</div></div>
-        <div class="app-tile app-tile--umsetzung"><div class="app-tile__cat">Umsetzung</div><div class="app-tile__name">Stellen&shy;anzeigen</div></div>
-        <div class="app-tile app-tile--umsetzung"><div class="app-tile__cat">Umsetzung</div><div class="app-tile__name">Social Content</div></div>
-        <div class="app-tile app-tile--umsetzung"><div class="app-tile__cat">Umsetzung</div><div class="app-tile__name">Karriereseiten&shy;texte</div></div>
-        <div class="app-tile app-tile--komm"><div class="app-tile__cat">Kommunikation</div><div class="app-tile__name">Business&shy;argumente</div></div>
-        <div class="app-tile app-tile--komm"><div class="app-tile__cat">Kommunikation</div><div class="app-tile__name">GF-Pr&auml;sentation</div></div>
-        <div class="app-tile app-tile--komm"><div class="app-tile__cat">Kommunikation</div><div class="app-tile__name">Stakeholder-Briefing</div></div>
-        <div class="app-tile app-tile--komm"><div class="app-tile__cat">Kommunikation</div><div class="app-tile__name">Reporting</div></div>
-        <div class="app-tile app-tile--forschung"><div class="app-tile__cat">Forschung</div><div class="app-tile__name">Befragungs&shy;design</div></div>
-        <div class="app-tile app-tile--forschung"><div class="app-tile__cat">Forschung</div><div class="app-tile__name">Ergebnis&shy;auswertung</div></div>
-        <div class="app-tile app-tile--controlling"><div class="app-tile__cat">Controlling</div><div class="app-tile__name">KPI-Dashboard</div></div>
-        <div class="app-tile app-tile--controlling"><div class="app-tile__cat">Controlling</div><div class="app-tile__name">Wirkungs&shy;messung</div></div>
-        <div class="app-tile app-tile--controlling"><div class="app-tile__cat">Controlling</div><div class="app-tile__name">Budget&shy;planung</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ SLIDE: Einwandbehandlung ═══ -->
-  <div class="slide" data-slide="einwaende">
-    <div class="slide-content stagger" style="max-width:960px;">
-      <p class="label">Typische Fragen</p>
-      <h2 style="margin-bottom:36px;">Was uns oft gefragt wird.</h2>
-      <div style="display:flex;flex-direction:column;gap:20px;width:100%;">
-        <div style="display:flex;align-items:flex-start;gap:20px;padding:24px 28px;background:white;border:1px solid var(--border-light);border-radius:16px;">
-          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.6rem;color:var(--purple-mid);line-height:1;">?</div>
-          <div>
-            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:1rem;color:var(--text-dark);margin-bottom:6px;">&bdquo;Wir haben kein Budget f&uuml;r ein neues Tool.&ldquo;</div>
-            <div style="font-family:'Inter',sans-serif;font-weight:300;font-size:0.9rem;color:var(--text-muted);line-height:1.6;">ASANTIAL kostet weniger als ein einziger Agentur-Workshop &ndash; und liefert dauerhaft. Kein Projektbudget, sondern laufende Investition in Handlungsf&auml;higkeit.</div>
+  <!-- ═══ SLIDE: Apps ═══ -->
+  <div class="slide" data-slide="apps">
+    <div class="slide-content stagger" style="max-width:1100px;align-items:flex-start;">
+      <p class="label">Das System</p>
+      <h2 style="text-align:left;margin-bottom:8px;">Apps, die zur Struktur passen.</h2>
+      <p class="body-text" style="text-align:left;max-width:700px;margin-bottom:40px;">28 spezialisierte Apps. 22 davon direkt in ASANTIAL Professional. 6 weitere f&uuml;r spezifische Anforderungen.</p>
+      <div style="display:flex;width:100%;justify-content:center;padding:20px 0;gap:12px;">
+        <!-- App 1 -->
+        <div class="app-card" style="transform:rotate(-3deg);">
+          <div style="width:44px;height:44px;border-radius:12px;background:var(--purple-dim);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple-mid)" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
           </div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--purple-mid);margin-bottom:8px;">Analyse</div>
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--text-dark);margin-bottom:12px;">Arbeitsmarkt&shy;analyse</div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:300;color:var(--text-muted);line-height:1.6;">Ordnet Markt, Zielgruppen und Branchenrealit&auml;t sachlich ein &ndash; als Entscheidungsgrundlage, nicht als Ausl&ouml;ser f&uuml;r den n&auml;chsten Schnellschuss.</div>
         </div>
-        <div style="display:flex;align-items:flex-start;gap:20px;padding:24px 28px;background:white;border:1px solid var(--border-light);border-radius:16px;">
-          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.6rem;color:var(--purple-mid);line-height:1;">?</div>
-          <div>
-            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:1rem;color:var(--text-dark);margin-bottom:6px;">&bdquo;Wir nutzen schon ChatGPT.&ldquo;</div>
-            <div style="font-family:'Inter',sans-serif;font-weight:300;font-size:0.9rem;color:var(--text-muted);line-height:1.6;">ChatGPT ist ein Werkzeug ohne Kontext. ASANTIAL ist ein System mit 15 Jahren EB-Erfahrung, DSGVO-Konformit&auml;t und strategischer Logik &ndash; kein generischer Chatbot.</div>
+        <!-- App 2 -->
+        <div class="app-card" style="transform:rotate(-1deg);">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(232,93,93,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e85d5d" stroke-width="2"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#e85d5d;margin-bottom:8px;">Strategie</div>
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--text-dark);margin-bottom:12px;">EVP Paket</div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:300;color:var(--text-muted);line-height:1.6;">Entwickelt ein Arbeitgeberversprechen, das tr&auml;gt &ndash; mit Substanz und Anschlussf&auml;higkeit statt Wunschformulierungen.</div>
         </div>
-        <div style="display:flex;align-items:flex-start;gap:20px;padding:24px 28px;background:white;border:1px solid var(--border-light);border-radius:16px;">
-          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.6rem;color:var(--purple-mid);line-height:1;">?</div>
-          <div>
-            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:1rem;color:var(--text-dark);margin-bottom:6px;">&bdquo;Das muss die Gesch&auml;ftsf&uuml;hrung entscheiden.&ldquo;</div>
-            <div style="font-family:'Inter',sans-serif;font-weight:300;font-size:0.9rem;color:var(--text-muted);line-height:1.6;">Genau daf&uuml;r gibt es die Businessargumente-App: Sie liefert dir die Sprache und Zahlen, um die GF zu &uuml;berzeugen. In 10 Minuten vorbereitet.</div>
+        <!-- App 3 -->
+        <div class="app-card" style="transform:rotate(1deg);">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(245,197,67,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4a020" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
           </div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#d4a020;margin-bottom:8px;">Umsetzung</div>
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--text-dark);margin-bottom:12px;">Projekt&shy;manager</div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:300;color:var(--text-muted);line-height:1.6;">F&uuml;hrt strukturiert durch alle Phasen, damit Employer Branding nicht bei Phase&nbsp;1 stecken bleibt.</div>
+        </div>
+        <!-- App 4 -->
+        <div class="app-card" style="transform:rotate(3deg);">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(191,217,245,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-sky)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue-sky);margin-bottom:8px;">Kommunikation</div>
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--text-dark);margin-bottom:12px;">Business&shy;argumente</div>
+          <div style="font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:300;color:var(--text-muted);line-height:1.6;">Macht Employer Branding wirtschaftlich argumentierbar gegen&uuml;ber F&uuml;hrung, Controlling und GF.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ═══ SLIDE: Pricing ═══ -->
-  <div class="slide dark" data-slide="pricing" style="overflow:hidden;">
-    <div class="slide-content stagger" style="max-width:1200px;align-items:flex-start;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;width:100%;align-items:start;">
-        <!-- Left column -->
-        <div>
-          <p style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--purple);margin-bottom:20px;">ASANTIAL <span style="font-style:italic;letter-spacing:0.05em;text-transform:none;">Professional</span></p>
-          <h2 style="text-align:left;color:var(--cream);margin-bottom:28px;line-height:1.1;">Ihre t&auml;gliche<br>Arbeitsgrundlage.</h2>
-          <p style="font-family:'Inter',sans-serif;font-size:clamp(0.85rem,1.2vw,1rem);font-weight:300;color:rgba(247,245,240,0.6);line-height:1.7;max-width:480px;">Alle Analyse-, Strategie- und Umsetzungs-Apps in einem Zugang. Kein Einzelprojekt mit Enddatum &ndash; sondern die Arbeitsumgebung, in der Employer Branding dauerhaft gesteuert wird. DSGVO-konform. Ergebnisse, die aufeinander aufbauen. Und Argumentationssicherheit, wenn die Gesch&auml;ftsf&uuml;hrung fragt.</p>
-          <div style="margin-top:36px;padding-top:28px;border-top:1px solid rgba(247,245,240,0.1);display:flex;align-items:baseline;gap:8px;">
-            <span style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(247,245,240,0.4);">ab</span>
-            <span style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(3rem,6vw,4.5rem);color:var(--cream);line-height:1;">497</span>
-            <span style="font-family:'Inter',sans-serif;font-size:1.4rem;color:var(--cream);font-weight:300;">&euro;</span>
-            <span style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(247,245,240,0.4);">/ Monat</span>
-          </div>
-        </div>
-        <!-- Right column -->
-        <div style="display:flex;flex-direction:column;gap:0;padding-top:60px;">
-          <div style="padding:24px 0;border-top:1px solid rgba(247,245,240,0.1);display:flex;align-items:flex-start;gap:16px;">
-            <div style="width:28px;height:2px;background:var(--purple);margin-top:10px;flex-shrink:0;"></div>
-            <p style="font-family:'Inter',sans-serif;font-size:clamp(0.95rem,1.4vw,1.15rem);font-weight:500;color:var(--cream);line-height:1.45;">Struktur statt Einzelimpulse.</p>
-          </div>
-          <div style="padding:24px 0;border-top:1px solid rgba(247,245,240,0.1);display:flex;align-items:flex-start;gap:16px;">
-            <div style="width:28px;height:2px;background:var(--purple);margin-top:10px;flex-shrink:0;"></div>
-            <p style="font-family:'Inter',sans-serif;font-size:clamp(0.95rem,1.4vw,1.15rem);font-weight:500;color:var(--cream);line-height:1.45;">Ergebnisse, die anschlussf&auml;hig sind.</p>
-          </div>
-          <div style="padding:24px 0;border-top:1px solid rgba(247,245,240,0.1);border-bottom:1px solid rgba(247,245,240,0.1);display:flex;align-items:flex-start;gap:16px;">
-            <div style="width:28px;height:2px;background:var(--purple);margin-top:10px;flex-shrink:0;"></div>
-            <p style="font-family:'Inter',sans-serif;font-size:clamp(0.95rem,1.4vw,1.15rem);font-weight:500;color:var(--cream);line-height:1.45;">R&uuml;ckhalt f&uuml;r HR-Verantwortliche, die Verantwortung tragen.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- PROFESSIONAL Watermark -->
-    <div style="position:absolute;bottom:-30px;left:0;right:0;font-family:'Fraunces',serif;font-weight:900;font-size:clamp(8rem,15vw,14rem);color:rgba(247,245,240,0.03);text-align:center;letter-spacing:0.05em;pointer-events:none;line-height:1;text-transform:uppercase;">PROFESSIONAL</div>
-  </div>
-
-  <!-- ═══ SLIDE: Vergleichstabelle (entfernt in V2) ═══
-       Apps und Vergleichstabelle entfernt, um Produkt-Block zu entschärfen.
-       Inhalte können bei Bedarf in der FAQ-Phase mündlich adressiert werden. -->
-
-  <!--
+  <!-- ═══ SLIDE: Vergleichstabelle ═══ -->
   <div class="slide" data-slide="compare">
     <div class="slide-content stagger" style="max-width:1150px;">
       <p class="label">Warum ASANTIAL</p>
@@ -2289,29 +1938,56 @@
     </div>
   </div>
 
-  -->
-
-  <!-- ═══ SLIDE: Recap ═══ -->
-  <div class="slide dark" data-slide="recap">
-    <div class="glow glow-purple"></div>
-    <div class="glow glow-blue"></div>
+  <!-- ═══ SLIDE: Kundenstimmen ═══ -->
+  <div class="slide" data-slide="testimonials">
     <div class="slide-content stagger">
-      <p class="label">Zusammenfassung</p>
-      <h2 style="margin-bottom:40px;">Drei Dinge zum Mitnehmen.</h2>
-      <div style="display:flex;flex-direction:column;gap:24px;max-width:700px;width:100%;">
-        <div style="display:flex;align-items:center;gap:20px;">
-          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.8rem,3vw,2.4rem);color:var(--purple);min-width:40px;">1</div>
-          <div style="font-family:'Inter',sans-serif;font-size:clamp(1rem,1.8vw,1.3rem);font-weight:300;color:rgba(247,245,240,0.85);line-height:1.5;">Das Problem liegt nicht bei dir &ndash; sondern an der <strong style="color:var(--cream);font-weight:600;">Projektlogik</strong>, die Employer Branding organisiert.</div>
+      <p class="label">Kundenstimmen</p>
+      <h2>Was HR-Verantwortliche sagen.</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;width:100%;">
+        <!-- Testimonial 1 -->
+        <div style="background:white;border:1px solid var(--border-light);border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 4px 20px rgba(37,23,42,0.06);">
+          <div>
+            <div style="font-family:'Fraunces',serif;font-size:2.5rem;color:var(--purple-mid);line-height:1;margin-bottom:8px;">&bdquo;</div>
+            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1rem,1.5vw,1.25rem);color:var(--text-dark);line-height:1.35;margin-bottom:16px;">Die Bibliothek ist beeindruckend vielseitig.</div>
+            <div style="font-family:'Inter',sans-serif;font-size:clamp(0.8rem,1.1vw,0.9rem);font-weight:300;color:var(--text-muted);line-height:1.6;">So viele Apps, so abwechslungsreich, so durchdacht. ASANTIAL ist ein gro&szlig;er Werkzeugkasten f&uuml;r Profis.</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border-light);">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--lavender));display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:0.75rem;color:white;">RU</div>
+            <div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.85rem;color:var(--text-dark);">Robert Ullrich</div>
+              <div style="font-family:'Inter',sans-serif;font-weight:300;font-size:0.75rem;color:var(--text-muted);">Personalleiter &middot; Siteco GmbH &middot; Elektroindustrie</div>
+            </div>
+          </div>
         </div>
-        <div style="width:100%;height:1px;background:rgba(163,160,255,0.15);"></div>
-        <div style="display:flex;align-items:center;gap:20px;">
-          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.8rem,3vw,2.4rem);color:var(--purple);min-width:40px;">2</div>
-          <div style="font-family:'Inter',sans-serif;font-size:clamp(1rem,1.8vw,1.3rem);font-weight:300;color:rgba(247,245,240,0.85);line-height:1.5;">KI kann dir heute schon helfen &ndash; aber ein <strong style="color:var(--cream);font-weight:600;">Betriebssystem</strong> macht den Unterschied.</div>
+        <!-- Testimonial 2 -->
+        <div style="background:white;border:1px solid var(--border-light);border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 4px 20px rgba(37,23,42,0.06);">
+          <div>
+            <div style="font-family:'Fraunces',serif;font-size:2.5rem;color:var(--purple-mid);line-height:1;margin-bottom:8px;">&bdquo;</div>
+            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1rem,1.5vw,1.25rem);color:var(--text-dark);line-height:1.35;margin-bottom:16px;">Eine komplette Jahresroadmap in einer Sitzung.</div>
+            <div style="font-family:'Inter',sans-serif;font-size:clamp(0.8rem,1.1vw,0.9rem);font-weight:300;color:var(--text-muted);line-height:1.6;">Alle Ma&szlig;nahmen, Abh&auml;ngigkeiten und Zeitr&auml;ume &ndash; fertig durchgeplant und als Excel exportiert. Wof&uuml;r man sonst Tage braucht, geht mit ASANTIAL in unter einer Stunde.</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border-light);">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#e85d5d,#f5c543);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:0.75rem;color:white;">FG</div>
+            <div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.85rem;color:var(--text-dark);">Fabian Girschick</div>
+              <div style="font-family:'Inter',sans-serif;font-weight:300;font-size:0.75rem;color:var(--text-muted);">Digital Content Manager &middot; Hochschule Neu-Ulm</div>
+            </div>
+          </div>
         </div>
-        <div style="width:100%;height:1px;background:rgba(163,160,255,0.15);"></div>
-        <div style="display:flex;align-items:center;gap:20px;">
-          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.8rem,3vw,2.4rem);color:var(--purple);min-width:40px;">3</div>
-          <div style="font-family:'Inter',sans-serif;font-size:clamp(1rem,1.8vw,1.3rem);font-weight:300;color:rgba(247,245,240,0.85);line-height:1.5;">Du kannst <strong style="color:var(--cream);font-weight:600;">sofort starten</strong> &ndash; mit dem Prompt oder mit einem Erstgespr&auml;ch.</div>
+        <!-- Testimonial 3 -->
+        <div style="background:white;border:1px solid var(--border-light);border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 4px 20px rgba(37,23,42,0.06);">
+          <div>
+            <div style="font-family:'Fraunces',serif;font-size:2.5rem;color:var(--purple-mid);line-height:1;margin-bottom:8px;">&bdquo;</div>
+            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1rem,1.5vw,1.25rem);color:var(--text-dark);line-height:1.35;margin-bottom:16px;">&Uuml;berzeugt hat mich die Entscheidungsarchitektur hinter dem System.</div>
+            <div style="font-family:'Inter',sans-serif;font-size:clamp(0.8rem,1.1vw,0.9rem);font-weight:300;color:var(--text-muted);line-height:1.6;">Anfangs war ich skeptisch. Doch die Ergebnisse &uuml;berzeugten mich. ASANTIAL denkt in Wirkungsketten statt Kampagnendruck &ndash; genau das hat bisher gefehlt.</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border-light);">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue-sky),var(--purple));display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;font-size:0.75rem;color:white;">SM</div>
+            <div>
+              <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:0.85rem;color:var(--text-dark);">Dr. Simon Mamerow</div>
+              <div style="font-family:'Inter',sans-serif;font-weight:300;font-size:0.75rem;color:var(--text-muted);">Wissenschaftler &middot; Mitentwickler ASANTIAL</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -2348,6 +2024,16 @@
     </div>
   </div>
 
+  <!-- ═══ SLIDE 20: Schlusswort (DARK) ═══ -->
+  <div class="slide dark" data-slide="20">
+    <div class="glow glow-lavender"></div>
+    <div class="slide-content stagger">
+      <div class="quote">&bdquo;Employer Branding muss nicht so sein,<br>wie es gerade ist. Es kann strukturiert,<br>wirksam und souver&auml;n sein.&ldquo;</div>
+      <div class="divider"></div>
+      <p style="font-size:1rem;color:rgba(247,245,240,0.4);margin-top:8px;">J&ouml;rg Schleburg &middot; 15+ Jahre Employer Branding &middot; 100+ Mittelstand-Projekte</p>
+    </div>
+  </div>
+
   <!-- ═══ NAVIGATION ═══ -->
   <div class="nav-bar" id="navBar">
     <div class="nav-dots" id="navDots"></div>
@@ -2363,44 +2049,6 @@
 </div>
 
 <script>
-  // ═══ TYPEWRITER ANIMATION (loops) ═══
-  (function() {
-    const h1 = document.getElementById('typewriter-h1');
-    if (!h1) return;
-    const fullText = 'Warum gute HR-Arbeit\noft wirkungslos bleibt';
-    h1.style.visibility = 'visible';
-
-    function runTypewriter() {
-      h1.innerHTML = '';
-      const cursor = document.createElement('span');
-      cursor.className = 'typewriter-cursor';
-      h1.appendChild(cursor);
-      let i = 0;
-      function type() {
-        if (i < fullText.length) {
-          if (fullText[i] === '\n') {
-            h1.insertBefore(document.createElement('br'), cursor);
-          } else {
-            h1.insertBefore(document.createTextNode(fullText[i]), cursor);
-          }
-          i++;
-          setTimeout(type, 55 + Math.random() * 35);
-        } else {
-          // Text fertig – Badges glühen lassen, dann nach 5 Sek neu starten
-          setTimeout(() => { cursor.style.display = 'none'; }, 1500);
-          // Tags glühen aktivieren
-          const tags = document.querySelectorAll('[data-slide="0"] .tag');
-          tags.forEach(t => { t.classList.remove('tag-glow'); void t.offsetWidth; t.classList.add('tag-glow'); });
-          // Nach Glow-Animation Klasse wieder entfernen
-          setTimeout(() => { tags.forEach(t => t.classList.remove('tag-glow')); }, 4000);
-          setTimeout(runTypewriter, 5000);
-        }
-      }
-      type();
-    }
-    setTimeout(runTypewriter, 800);
-  })();
-
   const slides = document.querySelectorAll('.slide');
   const total = slides.length;
   let cur = 0;
@@ -2443,28 +2091,6 @@
           container: reliefTL,
           elements: moments,
           count: moments.length,
-          revealed: 0
-        };
-      }
-      if (slide.classList.contains('ki3-slide')) {
-        const words = slide.querySelectorAll('.ki3-word');
-        const commas = slide.querySelectorAll('.ki3-comma');
-        fragmentSlides[idx] = {
-          type: 'ki3',
-          elements: words,
-          commas: commas,
-          count: words.length,
-          revealed: 0
-        };
-      }
-      const wpCards = slide.querySelector('.wendepunkt-cards');
-      if (wpCards) {
-        const cards = wpCards.querySelectorAll('.wendepunkt-card');
-        fragmentSlides[idx] = {
-          type: 'wendepunkt',
-          container: wpCards,
-          elements: cards,
-          count: cards.length,
           revealed: 0
         };
       }
@@ -2529,16 +2155,9 @@
         fragmentSlides[cur].elements.forEach(e => { e.classList.remove('visible', 'cal-active', 'cal-faded'); e.style.top = ''; });
       } else if (fragmentSlides[cur].type === 'tf') {
         fragmentSlides[cur].elements.forEach(e => { e.classList.remove('tf-visible', 'tf-active', 'tf-faded'); e.style.top = ''; });
-      } else if (fragmentSlides[cur].type === 'ki3') {
-        fragmentSlides[cur].elements.forEach(e => { e.style.opacity = '0'; e.style.transform = 'translateY(20px)'; });
-        fragmentSlides[cur].commas.forEach(e => { e.style.opacity = '0'; });
-      } else if (fragmentSlides[cur].type === 'wendepunkt') {
-        fragmentSlides[cur].elements.forEach(e => { e.style.opacity = '0'; e.style.transform = 'translateY(30px)'; });
       }
-      // Reveal first entry after a short delay (except wendepunkt - wait for click)
-      if (fragmentSlides[cur].type !== 'wendepunkt' && fragmentSlides[cur].type !== 'ki3') {
-        setTimeout(() => revealNextFragment(), 300);
-      }
+      // Reveal first entry after a short delay
+      setTimeout(() => revealNextFragment(), 300);
     }
 
     // Verlegenheitsfalle card animation - find the VF slide dynamically
@@ -2546,17 +2165,6 @@
     if (vfSlide && slides[cur] === vfSlide) animateVF();
     // Also check by content
     if (slides[cur].querySelector('#vf')) animateVF();
-
-    // ASANTIAL hero auto-animation
-    const ahAnims = slides[cur].querySelectorAll('.ah-anim');
-    if (ahAnims.length) {
-      // Reset first
-      ahAnims.forEach(el => { el.style.opacity = '0'; el.style.transform = el.querySelector('img') ? 'scale(1.3)' : (el.classList.contains('divider') ? 'scaleX(0)' : 'translateY(20px)'); });
-      // Trigger after brief delay
-      setTimeout(() => {
-        ahAnims.forEach(el => { el.style.opacity = '1'; el.style.transform = 'scale(1) translateY(0) scaleX(1)'; });
-      }, 100);
-    }
   }
 
   function revealNextFragment() {
@@ -2589,17 +2197,6 @@
     } else if (frag.type === 'relief') {
       const card = frag.elements[frag.revealed];
       card.classList.add('relief-shown');
-      frag.revealed++;
-    } else if (frag.type === 'ki3') {
-      const word = frag.elements[frag.revealed];
-      word.style.opacity = '1';
-      word.style.transform = 'translateY(0)';
-      if (frag.commas[frag.revealed]) frag.commas[frag.revealed].style.opacity = '1';
-      frag.revealed++;
-    } else if (frag.type === 'wendepunkt') {
-      const card = frag.elements[frag.revealed];
-      card.style.opacity = '1';
-      card.style.transform = 'translateY(0)';
       frag.revealed++;
     }
     return true;
@@ -2638,70 +2235,6 @@
     const diff = tx - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 60) { diff > 0 ? goNext() : goPrev(); }
   }, { passive: true });
-
-  // App tile shuffle animation
-  (function(){
-    const allApps = [
-      {cat:'Analyse',name:'Arbeitsmarktanalyse'},{cat:'Analyse',name:'Karriereseitenanalyse'},
-      {cat:'Analyse',name:'Wettbewerbsanalyse'},{cat:'Analyse',name:'Zielgruppeninsides'},
-      {cat:'Analyse',name:'EVP-Analyse',pro:true},{cat:'Strategie',name:'Start- & Navi-App'},
-      {cat:'Strategie',name:'Kick-Off Workshop'},{cat:'Strategie',name:'Kick-Off Auswertung'},
-      {cat:'Strategie',name:'EVP-Entwicklung',pro:true},{cat:'Strategie',name:'Arbeitgeberclaim',pro:true},
-      {cat:'Strategie',name:'F\u00fchrungsabgleich',pro:true},{cat:'Strategie',name:'Positionierungsmatrix'},
-      {cat:'Umsetzung',name:'Projektmanager'},{cat:'Umsetzung',name:'Roadmap'},
-      {cat:'Umsetzung',name:'Kanalstrategie'},{cat:'Umsetzung',name:'Content-Planer'},
-      {cat:'Umsetzung',name:'Stellenanzeigen'},{cat:'Umsetzung',name:'Social Content'},
-      {cat:'Umsetzung',name:'Karriereseitentexte'},{cat:'Kommunikation',name:'Businessargumente'},
-      {cat:'Kommunikation',name:'GF-Pr\u00e4sentation'},{cat:'Kommunikation',name:'Stakeholder-Briefing'},
-      {cat:'Kommunikation',name:'Reporting'},{cat:'Forschung',name:'Befragungsdesign'},
-      {cat:'Forschung',name:'Ergebnisauswertung'},{cat:'Controlling',name:'KPI-Dashboard'},
-      {cat:'Controlling',name:'Wirkungsmessung'},{cat:'Controlling',name:'Budgetplanung'}
-    ];
-    const catClass = {Analyse:'analyse',Strategie:'strategie',Umsetzung:'umsetzung',Kommunikation:'komm',Forschung:'forschung',Controlling:'controlling'};
-    const appSlide = document.querySelector('[data-slide="alle-apps"]');
-    if(!appSlide) return;
-    const tiles = appSlide.querySelectorAll('.app-tile');
-    let shuffleInterval;
-
-    function shuffleTile(){
-      const idx = Math.floor(Math.random()*tiles.length);
-      const tile = tiles[idx];
-      const app = allApps[Math.floor(Math.random()*allApps.length)];
-      tile.style.transition = 'opacity 0.4s, transform 0.4s';
-      tile.style.opacity = '0';
-      tile.style.transform = 'translateY(-10px) scale(0.95)';
-      setTimeout(()=>{
-        tile.querySelector('.app-tile__cat').textContent = app.cat;
-        tile.querySelector('.app-tile__name').textContent = app.name;
-        // Update category class
-        Object.values(catClass).forEach(c => tile.classList.remove('app-tile--'+c));
-        tile.classList.add('app-tile--'+(catClass[app.cat]||'analyse'));
-        // Update border color
-        if(app.pro && !tile.classList.contains('app-tile--premium')) tile.classList.add('app-tile--premium');
-        else if(!app.pro) tile.classList.remove('app-tile--premium');
-        tile.style.opacity = '1';
-        tile.style.transform = 'translateY(0) scale(1)';
-      }, 400);
-    }
-
-    // Watch for slide becoming active
-    const observer = new MutationObserver(()=>{
-      if(appSlide.classList.contains('active')){
-        clearInterval(shuffleInterval);
-        // Start shuffling after entry animation completes
-        setTimeout(()=>{
-          shuffleInterval = setInterval(()=>{
-            shuffleTile();
-            // Sometimes shuffle 2 at once
-            if(Math.random()>0.5) setTimeout(shuffleTile, 200);
-          }, 1800);
-        }, 3000);
-      } else {
-        clearInterval(shuffleInterval);
-      }
-    });
-    observer.observe(appSlide, {attributes:true, attributeFilter:['class']});
-  })();
 
   // Verlegenheitsfalle animation
   function animateVF() {

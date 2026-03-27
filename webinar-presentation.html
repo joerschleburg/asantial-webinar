@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASANTIAL Webinar – Warum gute HR-Arbeit oft wirkungslos bleibt</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --ink: #25172A;
+    --cream: #F7F5F0;
+    --cream-dark: #EDE9E1;
+    --purple: #a3a0ff;
+    --lavender: #d4c4ee;
+    --blue-soft: #dee3f8;
+    --blue-sky: #bfd9f5;
+    --purple-mid: #8a6aa4;
+    --purple-dim: rgba(163,160,255,0.15);
+    --lavender-dim: rgba(212,196,238,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    font-family: 'Inter', sans-serif;
+    background: var(--ink);
+    color: var(--cream);
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+  }
+
+  .presentation {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── Noise overlay ── */
+  .presentation::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0.03;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  }
+
+  /* ── Slides ── */
+  .slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 100px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    pointer-events: none;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  .slide.exit {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+
+  .slide-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  /* ── Typography – LARGE for presentation ── */
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(2.8rem, 5.5vw, 5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+    line-height: 1.15;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  .label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 16px;
+  }
+
+  .subtitle {
+    font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+    font-weight: 300;
+    color: rgba(247,245,240,0.7);
+    text-align: center;
+    max-width: 800px;
+    line-height: 1.5;
+  }
+
+  .highlight { color: var(--purple); }
+
+  .strong-line {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+    color: var(--cream);
+    text-align: center;
+    max-width: 900px;
+    line-height: 1.35;
+  }
+
+  .quote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+    line-height: 1.4;
+    color: var(--lavender);
+    text-align: center;
+    max-width: 850px;
+  }
+
+  .body-text {
+    font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    font-weight: 300;
+    color: rgba(247,245,240,0.8);
+    text-align: center;
+    max-width: 750px;
+    line-height: 1.7;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--purple);
+    margin: 24px auto;
+    opacity: 0.6;
+  }
+
+  /* ── Glows ── */
+  .glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .glow-purple { background: var(--purple); top: -200px; right: -100px; }
+  .glow-blue { background: var(--blue-sky); bottom: -200px; left: -100px; }
+  .glow-lavender { background: var(--lavender); top: 50%; left: 50%; transform: translate(-50%,-50%); width: 800px; height: 800px; opacity: 0.06; }
+
+  /* ── Tags ── */
+  .tag-row {
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 20px;
+  }
+  .tag {
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 8px 18px; border-radius: 100px;
+    border: 1px solid rgba(163,160,255,0.25); color: rgba(247,245,240,0.6);
+    background: rgba(163,160,255,0.06);
+  }
+
+  /* ══════════════════════════════════════════════════════
+     CALENDAR ENTRIES
+     ══════════════════════════════════════════════════════ */
+  .calendar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 800px;
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  .cal-entry {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .cal-entry.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .cal-entry.highlight-entry {
+    transform: translateY(0) scale(1.02);
+  }
+
+  .cal-time {
+    min-width: 90px;
+    padding: 14px 16px;
+    background: rgba(163,160,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--purple);
+    letter-spacing: 0.02em;
+    border-right: 3px solid var(--purple);
+  }
+
+  .cal-body {
+    flex: 1;
+    padding: 14px 20px;
+    background: rgba(247,245,240,0.05);
+    border: 1px solid rgba(212,196,238,0.08);
+    border-left: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .cal-body p {
+    font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+    color: rgba(247,245,240,0.85);
+    line-height: 1.45;
+  }
+
+  .cal-entry.cal-accent .cal-time {
+    background: rgba(163,160,255,0.2);
+  }
+
+  .cal-entry.cal-accent .cal-body {
+    background: rgba(163,160,255,0.08);
+    border-color: rgba(163,160,255,0.15);
+  }
+
+  .cal-entry.cal-accent .cal-body p {
+    color: var(--lavender);
+    font-style: italic;
+  }
+
+  /* Calendar color coding */
+  .cal-entry.cal-red .cal-time { border-right-color: #ff8a8a; color: #ff8a8a; background: rgba(255,138,138,0.1); }
+  .cal-entry.cal-orange .cal-time { border-right-color: #ffb86c; color: #ffb86c; background: rgba(255,184,108,0.1); }
+  .cal-entry.cal-blue .cal-time { border-right-color: var(--blue-sky); color: var(--blue-sky); background: rgba(191,217,245,0.1); }
+
+  /* ── Situation Cards ── */
+  .sit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 960px;
+    width: 100%;
+  }
+
+  .sit-card {
+    background: rgba(247,245,240,0.04);
+    border: 1px solid rgba(212,196,238,0.1);
+    border-radius: 20px;
+    padding: 28px 24px;
+    transition: all 0.3s ease;
+  }
+
+  .sit-card:hover {
+    background: rgba(163,160,255,0.07);
+    border-color: rgba(163,160,255,0.2);
+    transform: translateY(-3px);
+  }
+
+  .sit-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2.2rem;
+    font-weight: 200;
+    color: var(--purple);
+    opacity: 0.35;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .sit-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+
+  .sit-desc {
+    font-size: clamp(0.85rem, 1.2vw, 0.95rem);
+    color: rgba(247,245,240,0.5);
+    line-height: 1.5;
+  }
+
+  .sit-card.full-width { grid-column: span 2; }
+
+  /* ── Transformation ── */
+  .tf-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .tf-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .tf-before {
+    flex: 1;
+    text-align: right;
+    font-size: clamp(1rem, 1.8vw, 1.35rem);
+    color: rgba(247,245,240,0.4);
+    text-decoration: line-through;
+    text-decoration-color: rgba(247,245,240,0.15);
+  }
+
+  .tf-arrow {
+    color: var(--purple);
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .tf-after {
+    flex: 1;
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 400;
+    color: var(--cream);
+  }
+
+  /* ── Cards 3-col ── */
+  .cards-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .card {
+    background: rgba(247,245,240,0.04);
+    border: 1px solid rgba(212,196,238,0.1);
+    border-radius: 20px;
+    padding: 32px 28px;
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(163,160,255,0.1);
+  }
+
+  .card h3 {
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    margin-bottom: 10px;
+    color: var(--cream);
+  }
+
+  .card p {
+    font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+    color: rgba(247,245,240,0.6);
+    line-height: 1.6;
+  }
+
+  /* ── Feature List ── */
+  .feat-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 960px;
+    width: 100%;
+  }
+
+  .feat-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(247,245,240,0.03);
+    border: 1px solid rgba(212,196,238,0.08);
+  }
+
+  .feat-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--purple-dim);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+  }
+
+  .feat-item h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    margin-bottom: 4px;
+  }
+
+  .feat-item p {
+    font-size: clamp(0.82rem, 1.1vw, 0.92rem);
+    color: rgba(247,245,240,0.55);
+  }
+
+  /* ── Chat ── */
+  .chat-box {
+    background: rgba(247,245,240,0.04);
+    border: 1px solid rgba(212,196,238,0.15);
+    border-radius: 20px;
+    padding: 28px 36px;
+    max-width: 600px;
+    display: flex; align-items: center; gap: 16px;
+    margin-top: 20px;
+  }
+
+  .chat-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .chat-text {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    color: rgba(247,245,240,0.6);
+    font-style: italic;
+  }
+
+  /* ── CTA ── */
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--purple);
+    color: var(--ink);
+    padding: 20px 48px;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    margin-top: 28px;
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(163,160,255,0.4);
+  }
+
+  .cta-btn .arrow { transition: transform 0.3s ease; }
+  .cta-btn:hover .arrow { transform: translateX(4px); }
+
+  /* ── Meta strip ── */
+  .meta-strip {
+    display: flex; gap: 48px; justify-content: center; flex-wrap: wrap; margin-top: 20px;
+  }
+  .meta-item { text-align: center; }
+  .meta-val {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 400;
+    color: var(--cream);
+  }
+  .meta-lbl {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em;
+    color: rgba(247,245,240,0.4); margin-top: 2px;
+  }
+
+  /* ── Gegen-Paare (text slide) ── */
+  .gegen-list {
+    display: flex; flex-direction: column; gap: 12px;
+    align-items: center; margin-top: 20px;
+  }
+  .gegen-item {
+    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+    color: rgba(247,245,240,0.55);
+  }
+  .gegen-item .highlight { font-weight: 500; }
+
+  /* ── Logo ── */
+  .logo {
+    position: fixed;
+    top: 24px; left: 32px; z-index: 100;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(247,245,240,0.4);
+  }
+
+  /* ── Navigation ── */
+  .nav-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 36px;
+    background: linear-gradient(transparent, rgba(37,23,42,0.95));
+    z-index: 100;
+  }
+
+  .nav-dots { display: flex; gap: 5px; align-items: center; }
+
+  .nav-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(247,245,240,0.15);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .nav-dot.active { background: var(--purple); width: 28px; border-radius: 3px; }
+  .nav-dot.visited { background: rgba(163,160,255,0.35); }
+
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+
+  .slide-num {
+    font-size: 0.78rem; font-weight: 500;
+    color: rgba(247,245,240,0.35); letter-spacing: 0.1em;
+  }
+
+  .nav-btns { display: flex; gap: 8px; }
+
+  .nav-btn {
+    width: 46px; height: 46px; border-radius: 50%;
+    border: 1px solid rgba(247,245,240,0.12);
+    background: rgba(247,245,240,0.04);
+    color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.3s ease;
+    font-size: 1.15rem;
+  }
+  .nav-btn:hover { background: rgba(163,160,255,0.12); border-color: var(--purple); }
+  .nav-btn:disabled { opacity: 0.25; cursor: default; }
+
+  /* ── Stagger animation ── */
+  .stagger > * {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .slide.active .stagger > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0.1s; }
+  .slide.active .stagger > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.2s; }
+  .slide.active .stagger > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.3s; }
+  .slide.active .stagger > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.4s; }
+  .slide.active .stagger > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.5s; }
+  .slide.active .stagger > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:0.6s; }
+  .slide.active .stagger > *:nth-child(7) { opacity:1; transform:translateY(0); transition-delay:0.7s; }
+  .slide.active .stagger > *:nth-child(8) { opacity:1; transform:translateY(0); transition-delay:0.8s; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .slide { padding: 40px 24px; }
+    .sit-grid, .feat-list, .cards-3 { grid-template-columns: 1fr; }
+    .sit-card.full-width { grid-column: span 1; }
+    .tf-row { gap: 12px; }
+    .nav-bar { padding: 12px 16px; }
+  }
+
+  /* ── Verlegenheitsfalle ── */
+  .vf-cycle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+
+  .vf-step {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 400;
+    color: var(--cream);
+    padding: 12px 20px;
+    position: relative;
+  }
+
+  .vf-step-arrow {
+    color: var(--purple);
+    font-size: 1.3rem;
+    opacity: 0.5;
+    padding: 0 4px;
+  }
+
+  .vf-bubbles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 960px;
+    width: 100%;
+  }
+
+  .vf-bubble {
+    background: rgba(247,245,240,0.06);
+    border: 1px solid rgba(212,196,238,0.12);
+    border-radius: 18px;
+    padding: 22px 24px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .vf-bubble.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .vf-bubble:hover {
+    background: rgba(163,160,255,0.08);
+    border-color: rgba(163,160,255,0.2);
+    transform: translateY(-3px) scale(1);
+  }
+
+  .vf-bubble-quote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+    color: rgba(247,245,240,0.85);
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .vf-bubble-attr {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 4px 10px;
+    border-radius: 100px;
+    display: inline-block;
+  }
+
+  .vf-attr-hr { color: var(--purple); background: rgba(163,160,255,0.12); }
+  .vf-attr-gf { color: #ff8a8a; background: rgba(255,138,138,0.1); }
+  .vf-attr-fach { color: var(--blue-sky); background: rgba(191,217,245,0.1); }
+  .vf-attr-br { color: #ffb86c; background: rgba(255,184,108,0.1); }
+  .vf-attr-it { color: #8be9a0; background: rgba(139,233,160,0.1); }
+  .vf-attr-mkt { color: var(--lavender); background: rgba(212,196,238,0.12); }
+  .vf-attr-dl { color: #e0c097; background: rgba(224,192,151,0.1); }
+
+  @media (max-width: 768px) {
+    .vf-bubbles { grid-template-columns: 1fr; }
+  }
+
+  /* ── FAQ cards ── */
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 800px;
+    width: 100%;
+  }
+  .faq-card {
+    background: rgba(247,245,240,0.04);
+    border: 1px solid rgba(212,196,238,0.1);
+    border-radius: 18px;
+    padding: 24px;
+  }
+  .faq-label {
+    font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.15em; color: var(--purple); margin-bottom: 8px;
+  }
+  .faq-q {
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    color: var(--cream);
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="presentation">
+  <div class="logo">ASANTIAL</div>
+
+  <!-- ═══ SLIDE 0: Titel ═══ -->
+  <div class="slide active" data-slide="0">
+    <div class="glow glow-purple"></div>
+    <div class="glow glow-blue"></div>
+    <div class="slide-content stagger">
+      <p class="label">Live-Webinar &middot; 1. April 2026</p>
+      <h1>Warum gute HR-Arbeit<br>oft wirkungslos bleibt</h1>
+      <div class="divider"></div>
+      <p class="subtitle">45 Minuten, die erkl&auml;ren, warum das Problem<br>nicht an dir liegt. Und was du dagegen tun kannst.</p>
+      <div class="tag-row">
+        <span class="tag">45 Min + Q&amp;A</span>
+        <span class="tag">Zoom</span>
+        <span class="tag">Kostenlos</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 1: Einstieg ═══ -->
+  <div class="slide" data-slide="1">
+    <div class="glow glow-lavender"></div>
+    <div class="slide-content stagger">
+      <p class="label">Wiedererkennung</p>
+      <h2>Ein typischer Tag<br>im Employer Branding</h2>
+      <p class="subtitle">Kommt dir das bekannt vor?</p>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 2: Kalender Vormittag ═══ -->
+  <div class="slide" data-slide="2">
+    <div class="glow glow-blue"></div>
+    <div class="slide-content">
+      <p class="label" style="align-self:flex-start;margin-bottom:20px;">Dein Kalender &middot; Vormittag</p>
+      <div class="calendar" id="cal-morning">
+        <div class="cal-entry cal-red">
+          <div class="cal-time">08:30</div>
+          <div class="cal-body"><p>Meeting Fachabteilung &ndash; Stelle besetzen, aber keine Infos: Profil? Budget? Startdatum?</p></div>
+        </div>
+        <div class="cal-entry">
+          <div class="cal-time">09:15</div>
+          <div class="cal-body"><p>Jubil&auml;umsgeschenk organisieren &ndash; Termin ist &uuml;bermorgen</p></div>
+        </div>
+        <div class="cal-entry cal-orange">
+          <div class="cal-time">10:00</div>
+          <div class="cal-body"><p>Call mit der Agentur &ndash; neues Kampagnenkonzept, dir fehlt die Grundlage</p></div>
+        </div>
+        <div class="cal-entry">
+          <div class="cal-time">11:00</div>
+          <div class="cal-body"><p>Einstellungsgespr&auml;ch f&uuml;hren &ndash; parallel l&auml;uft die Vorbereitung f&uuml;r das Azubi-Event</p></div>
+        </div>
+        <div class="cal-entry cal-blue">
+          <div class="cal-time">11:30</div>
+          <div class="cal-body"><p>Chef fragt nach dem Status vom EVP-Projekt</p></div>
+        </div>
+        <div class="cal-entry cal-red">
+          <div class="cal-time">12:30</div>
+          <div class="cal-body"><p>Mittagspause? Nein &ndash; Stellenanzeigen hochladen</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 3: Kalender Nachmittag ═══ -->
+  <div class="slide" data-slide="3">
+    <div class="glow glow-purple"></div>
+    <div class="slide-content">
+      <p class="label" style="align-self:flex-start;margin-bottom:20px;">Dein Kalender &middot; Nachmittag</p>
+      <div class="calendar" id="cal-afternoon">
+        <div class="cal-entry">
+          <div class="cal-time">14:00</div>
+          <div class="cal-body"><p>Drei LinkedIn-Anfragen, ein Kununu-Kommentar zum Eskalieren</p></div>
+        </div>
+        <div class="cal-entry cal-orange">
+          <div class="cal-time">15:00</div>
+          <div class="cal-body"><p>Budgetanfrage Karriere-Messe &ndash; zum dritten Mal nach Budget fragen</p></div>
+        </div>
+        <div class="cal-entry cal-red">
+          <div class="cal-time">16:00</div>
+          <div class="cal-body"><p>Du solltest an der Strategie arbeiten &ndash; stattdessen: E-Mails &amp; Azubi-Event</p></div>
+        </div>
+        <div class="cal-entry cal-accent">
+          <div class="cal-time">18:00</div>
+          <div class="cal-body"><p>&bdquo;Ich war den ganzen Tag besch&auml;ftigt &ndash; aber nichts f&uuml;hlt sich abgeschlossen an.&ldquo;</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 4: Verlegenheitsfalle Headline ═══ -->
+  <div class="slide" data-slide="4">
+    <div class="glow glow-lavender"></div>
+    <div class="slide-content stagger">
+      <p class="label">Das Muster dahinter</p>
+      <h1>Die Verlegenheits-Falle</h1>
+      <div class="divider"></div>
+      <p class="subtitle">Das Dringende verdr&auml;ngt das Wichtige &ndash;<br>und die Rechnung kommt garantiert.</p>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 5: Verlegenheitsfalle Zyklus ═══ -->
+  <div class="slide" data-slide="5">
+    <div class="glow glow-purple"></div>
+    <div class="slide-content stagger">
+      <div class="vf-cycle">
+        <span class="vf-step">Viel machen</span>
+        <span class="vf-step-arrow">&rarr;</span>
+        <span class="vf-step">Kein Fortschritt</span>
+        <span class="vf-step-arrow">&rarr;</span>
+        <span class="vf-step">Viel Rechtfertigung</span>
+        <span class="vf-step-arrow">&rarr;</span>
+        <span class="vf-step">Keine Wirkung</span>
+        <span class="vf-step-arrow">&rarr;</span>
+        <span class="vf-step" style="color:var(--purple);">&#x21BB;</span>
+      </div>
+      <p class="body-text" style="margin-top:20px;">Ein Kreislauf, der sich selbst verst&auml;rkt &ndash;<br>und aus dem du mit guter Absicht allein nicht rauskommst.</p>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 6: Verlegenheitsfalle Stimmen 1 ═══ -->
+  <div class="slide" data-slide="6">
+    <div class="glow glow-blue"></div>
+    <div class="slide-content stagger">
+      <p class="label">Stimmen, die du kennst</p>
+      <h2>Und w&auml;hrenddessen h&ouml;rst du&hellip;</h2>
+      <div class="vf-bubbles" id="vf-bubbles-1" style="margin-top:20px;">
+        <div class="vf-bubble">
+          <div class="vf-bubble-quote">&bdquo;Warum kriegen wir die Stellen im Vertrieb nicht besetzt?&ldquo;</div>
+          <span class="vf-bubble-attr vf-attr-gf">Gesch&auml;ftsf&uuml;hrer</span>
+        </div>
+        <div class="vf-bubble">
+          <div class="vf-bubble-quote">&bdquo;Ich hab auf LinkedIn was &uuml;ber Employer Branding gesehen. Machen wir das eigentlich?&ldquo;</div>
+          <span class="vf-bubble-attr vf-attr-fach">Fachbereich</span>
+        </div>
+        <div class="vf-bubble">
+          <div class="vf-bubble-quote">&bdquo;Der Fotograf kommt Donnerstag. K&ouml;nnt ihr drei Mitarbeitende organisieren?&ldquo;</div>
+          <span class="vf-bubble-attr vf-attr-mkt">Marketing</span>
+        </div>
+        <div class="vf-bubble">
+          <div class="vf-bubble-quote">&bdquo;D&uuml;rfen wir die Fotos &uuml;berhaupt verwenden?&ldquo;</div>
+          <span class="vf-bubble-attr vf-attr-br">Betriebsrat</span>
+        </div>
+        <div class="vf-bubble">
+          <div class="vf-bubble-quote">&bdquo;Das Bewerbungsformular ist seit zwei Tagen down.&ldquo;</div>
+          <span class="vf-bubble-attr vf-attr-it">IT</span>
+        </div>
+        <div class="vf-bubble">
+          <div class="vf-bubble-quote">&bdquo;Ohne klare Zielgruppe k&ouml;nnen wir keinen Entwurf machen.&ldquo;</div>
+          <span class="vf-bubble-attr vf-attr-dl">Ext. Dienstleister</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 7: Verlegenheitsfalle Stimmen 2 ═══ -->
+  <div class="slide" data-slide="7">
+    <div class="glow glow-lavender"></div>
+    <div class="slide-content stagger">
+      <p class="label">Stimmen, die du kennst</p>
+      <div class="vf-bubbles" id="vf-bubbles-2">
+        <div class="vf-bubble">
+          <div class="vf-bubble-quote">&bdquo;Soll ich auf die Google-Bewertung antworten oder du?&ldquo;</div>
+          <span class="vf-bubble-attr vf-attr-hr">HR-Kollege</span>
+        </div>
+        <div class="vf-bubble">
+          <div class="vf-bubble-quote">&bdquo;Die Azubi-Kampagne von letztem Jahr &ndash; wo liegt die nochmal?&ldquo;</div>
+          <span class="vf-bubble-attr vf-attr-hr">HR-Kollegin</span>
+        </div>
+        <div class="vf-bubble">
+          <div class="vf-bubble-quote">&bdquo;Bei uns bewirbt sich keiner mehr &ndash; k&ouml;nnt ihr da mal was machen?&ldquo;</div>
+          <span class="vf-bubble-attr vf-attr-fach">Fachbereich</span>
+        </div>
+        <div class="vf-bubble">
+          <div class="vf-bubble-quote">&bdquo;Haben wir eine Vorlage f&uuml;r Mitarbeiter-Testimonials?&ldquo;</div>
+          <span class="vf-bubble-attr vf-attr-hr">HR-Kollege</span>
+        </div>
+        <div class="vf-bubble">
+          <div class="vf-bubble-quote">&bdquo;Wir brauchen die Texte f&uuml;r die Landingpage &ndash; am besten gestern.&ldquo;</div>
+          <span class="vf-bubble-attr vf-attr-dl">Ext. Dienstleister</span>
+        </div>
+        <div class="vf-bubble">
+          <div class="vf-bubble-quote">&bdquo;Ich hab geh&ouml;rt, TikTok funktioniert gut f&uuml;rs Recruiting.&ldquo;</div>
+          <span class="vf-bubble-attr vf-attr-fach">Fachbereich</span>
+        </div>
+      </div>
+      <p class="strong-line" style="margin-top:28px;font-size:clamp(1rem,1.6vw,1.2rem);">Jede einzelne Anfrage ist berechtigt.<br>Aber in Summe ergibt sich: <span class="highlight">kein System, nur Reaktion.</span></p>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 8: &Uuml;berleitung ═══ -->
+  <div class="slide" data-slide="8">
+    <div class="glow glow-lavender"></div>
+    <div class="slide-content stagger">
+      <h2>Das ist kein Zufall.</h2>
+      <div class="divider"></div>
+      <p class="strong-line">Und es liegt nicht an dir.<br>Es liegt an der Art, wie Employer Branding<br>organisiert wird.</p>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 5: Die 7 Situationen (1-4) ═══ -->
+  <div class="slide" data-slide="5">
+    <div class="glow glow-blue"></div>
+    <div class="slide-content stagger">
+      <p class="label">Warum gute Arbeit verpufft</p>
+      <h2>7 Situationen, die du kennst</h2>
+      <div class="sit-grid" style="margin-top:16px;">
+        <div class="sit-card">
+          <div class="sit-num">01</div>
+          <div class="sit-title">Die Gesch&auml;ftsf&uuml;hrungsfrage</div>
+          <div class="sit-desc">&bdquo;Was bringt uns das konkret?&ldquo; &ndash; Und dir fehlt die &uuml;berzeugende Antwort.</div>
+        </div>
+        <div class="sit-card">
+          <div class="sit-num">02</div>
+          <div class="sit-title">Reaktive Impulse</div>
+          <div class="sit-desc">&bdquo;Das m&uuml;ssten wir auch machen&ldquo; &ndash; Fremdsteuerung statt eigener Linie.</div>
+        </div>
+        <div class="sit-card">
+          <div class="sit-num">03</div>
+          <div class="sit-title">Agentur-Abh&auml;ngigkeit</div>
+          <div class="sit-desc">Konzepte verteidigen, die du nicht selbst steuerst &ndash; ohne eigenes System.</div>
+        </div>
+        <div class="sit-card">
+          <div class="sit-num">04</div>
+          <div class="sit-title">Der Projekt-Kater</div>
+          <div class="sit-desc">Projekt abgeschlossen, aber im Alltag greift wenig davon.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 6: Situationen 5-7 ═══ -->
+  <div class="slide" data-slide="6">
+    <div class="glow glow-purple"></div>
+    <div class="slide-content stagger">
+      <p class="label">Warum gute Arbeit verpufft</p>
+      <div class="sit-grid" style="margin-top:8px;">
+        <div class="sit-card">
+          <div class="sit-num">05</div>
+          <div class="sit-title">Rollendiffusion</div>
+          <div class="sit-desc">Du moderierst, koordinierst, erkl&auml;rst &ndash; entscheidest aber selten wirklich.</div>
+        </div>
+        <div class="sit-card">
+          <div class="sit-num">06</div>
+          <div class="sit-title">Initiative versandet</div>
+          <div class="sit-desc">Projekt startet mit Energie &ndash; nach Wochen ist das Momentum weg.</div>
+        </div>
+        <div class="sit-card full-width">
+          <div class="sit-num">07</div>
+          <div class="sit-title">Der stille Ersch&ouml;pfungs-Moment</div>
+          <div class="sit-desc">&bdquo;Viel gearbeitet, aber nichts abgeschlossen.&ldquo; &ndash; Emotionale Ersch&ouml;pfung durch fehlende Koh&auml;renz.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 7: Chat ═══ -->
+  <div class="slide" data-slide="7">
+    <div class="glow glow-lavender"></div>
+    <div class="slide-content stagger">
+      <p class="label">Deine Erfahrung</p>
+      <h2>Welche dieser Situationen<br>kennst du am besten?</h2>
+      <div class="chat-box">
+        <span class="chat-icon">💬</span>
+        <span class="chat-text">Schreib&rsquo;s in den Chat &ndash; ich bin gespannt.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 8: Kernthese ═══ -->
+  <div class="slide" data-slide="8">
+    <div class="glow glow-purple"></div>
+    <div class="glow glow-blue"></div>
+    <div class="slide-content stagger">
+      <p class="label">Perspektivwechsel</p>
+      <h1>Es liegt nicht an dir.<br><span class="highlight">Es liegt am System.</span></h1>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 9: Erkl&auml;rung ═══ -->
+  <div class="slide" data-slide="9">
+    <div class="glow glow-lavender"></div>
+    <div class="slide-content stagger">
+      <p class="label">Die Ursache</p>
+      <h2>Projektlogik erzeugt Bewegung.<br>Aber keine Wirkung.</h2>
+      <div class="divider"></div>
+      <p class="body-text">Employer Branding ist <strong style="color:var(--cream)">kontinuierliche Arbeit</strong>.<br>Aber es wird wie ein Projekt organisiert &ndash;<br>mit Anfang, Ende und &Uuml;bergabe.</p>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 10: Gegen-Paare ═══ -->
+  <div class="slide" data-slide="10">
+    <div class="glow glow-blue"></div>
+    <div class="slide-content stagger">
+      <p class="label">Umdenken</p>
+      <div class="gegen-list">
+        <p class="gegen-item">Nicht Projektmodus &ndash; sondern <span class="highlight">kontinuierliche Arbeit</span></p>
+        <p class="gegen-item">Nicht Aktionismus &ndash; sondern <span class="highlight">Wirkung</span></p>
+        <p class="gegen-item">Nicht reagieren m&uuml;ssen &ndash; sondern <span class="highlight">gestalten k&ouml;nnen</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 11: Entlastung ═══ -->
+  <div class="slide" data-slide="11">
+    <div class="glow glow-lavender"></div>
+    <div class="slide-content stagger">
+      <p class="label">Entlastung</p>
+      <div class="quote">&bdquo;Du machst nichts falsch.<br>Das System ist falsch aufgesetzt.&ldquo;</div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 12: Transformation Headline ═══ -->
+  <div class="slide" data-slide="12">
+    <div class="glow glow-purple"></div>
+    <div class="slide-content stagger">
+      <p class="label">Transformation</p>
+      <h1>So k&ouml;nnte es sein.</h1>
+      <p class="subtitle">Von der Realit&auml;t, die du kennst &ndash;<br>zu der, die m&ouml;glich ist.</p>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 13: Transformation Paare ═══ -->
+  <div class="slide" data-slide="13">
+    <div class="glow glow-blue"></div>
+    <div class="slide-content stagger">
+      <div class="tf-grid">
+        <div class="tf-row">
+          <span class="tf-before">&Uuml;berforderung</span>
+          <span class="tf-arrow">&rarr;</span>
+          <span class="tf-after">Souver&auml;nit&auml;t</span>
+        </div>
+        <div class="tf-row">
+          <span class="tf-before">Rechtfertigung</span>
+          <span class="tf-arrow">&rarr;</span>
+          <span class="tf-after">Begr&uuml;ndet entscheiden</span>
+        </div>
+        <div class="tf-row">
+          <span class="tf-before">Chaos</span>
+          <span class="tf-arrow">&rarr;</span>
+          <span class="tf-after">Ordnung</span>
+        </div>
+        <div class="tf-row">
+          <span class="tf-before">Unsichtbare Arbeit</span>
+          <span class="tf-arrow">&rarr;</span>
+          <span class="tf-after">Anerkennung</span>
+        </div>
+        <div class="tf-row">
+          <span class="tf-before">Projektmodus</span>
+          <span class="tf-arrow">&rarr;</span>
+          <span class="tf-after">Kontinuierliche Arbeit</span>
+        </div>
+        <div class="tf-row">
+          <span class="tf-before">Agenturabh&auml;ngigkeit</span>
+          <span class="tf-arrow">&rarr;</span>
+          <span class="tf-after">Interne Steuerung</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 14: Szenarien ═══ -->
+  <div class="slide" data-slide="14">
+    <div class="glow glow-lavender"></div>
+    <div class="slide-content stagger">
+      <p class="label">Stell dir vor&hellip;</p>
+      <div class="cards-3">
+        <div class="card">
+          <h3>Das GF-Meeting</h3>
+          <p>&bdquo;Was bringt uns das?&ldquo; &ndash; und du kannst es in drei S&auml;tzen erkl&auml;ren. Mit Logik. Mit Klarheit.</p>
+        </div>
+        <div class="card">
+          <h3>Die neue Idee</h3>
+          <p>Du pr&uuml;fst sie gegen deine Strategie &ndash; und kannst begr&uuml;ndet Ja oder Nein sagen.</p>
+        </div>
+        <div class="card">
+          <h3>Wochenabschluss</h3>
+          <p>Du wei&szlig;t: Diese drei Dinge haben wir geschafft. Und sie zahlen auf unsere Ziele ein.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 15: Machbar ═══ -->
+  <div class="slide" data-slide="15">
+    <div class="glow glow-purple"></div>
+    <div class="slide-content stagger">
+      <h2>Das ist keine Fantasie.</h2>
+      <p class="strong-line">Das ist machbar.<br>Aber es braucht eine andere <span class="highlight">Arbeitslogik</span>.</p>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 16: ASANTIAL ═══ -->
+  <div class="slide" data-slide="16">
+    <div class="glow glow-purple"></div>
+    <div class="glow glow-blue"></div>
+    <div class="slide-content stagger">
+      <p class="label">Die L&ouml;sung</p>
+      <h1 style="margin-bottom:8px;">ASANTIAL</h1>
+      <p class="subtitle">Das Betriebssystem f&uuml;r Employer Branding</p>
+      <div class="divider"></div>
+      <p class="body-text">Kein Tool, keine Agentur, kein Automatisierungsversprechen.<br>Ein Arbeits- und Entscheidungssystem f&uuml;r<br>kontinuierliches Employer Branding im Mittelstand.</p>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 17: Was ASANTIAL macht ═══ -->
+  <div class="slide" data-slide="17">
+    <div class="glow glow-lavender"></div>
+    <div class="slide-content stagger">
+      <p class="label">Was ASANTIAL macht</p>
+      <h2 style="margin-bottom:24px;">Keine Features. Nur Wirkung.</h2>
+      <div class="feat-list">
+        <div class="feat-item">
+          <div class="feat-icon">🧭</div>
+          <div><h3>Struktur, Klarheit, R&uuml;ckhalt</h3><p>Eine Arbeitslogik, die Entscheidungen tragf&auml;hig macht.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">📊</div>
+          <div><h3>Wirkung sichtbar machen</h3><p>Kennzahlen und Ergebnisse, die man der GF zeigen kann.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🚀</div>
+          <div><h3>EB auf ein neues Level</h3><p>Vom Nebenprojekt zur strategischen Aufgabe mit klarer Rolle.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🔄</div>
+          <div><h3>Kompletter EB-Prozess</h3><p>Von Strategie bis Erfolgskontrolle &ndash; ein durchg&auml;ngiges System.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">💪</div>
+          <div><h3>HR auf dem Driver Seat</h3><p>Vom Koordinator zur Gestalterin &ndash; volle Kontrolle.</p></div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🔓</div>
+          <div><h3>Unabh&auml;ngig von Agenturen</h3><p>EB selbst steuern &ndash; ohne permanente externe Abh&auml;ngigkeit.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 18: CTA ═══ -->
+  <div class="slide" data-slide="18">
+    <div class="glow glow-purple"></div>
+    <div class="glow glow-blue"></div>
+    <div class="slide-content stagger">
+      <p class="label">N&auml;chster Schritt</p>
+      <h1>Lass uns reden.</h1>
+      <p class="subtitle">Wenn du dich wiedererkennst &ndash;<br>lass uns schauen, ob ASANTIAL f&uuml;r dich passt.</p>
+      <div class="meta-strip">
+        <div class="meta-item"><div class="meta-val">30 Min</div><div class="meta-lbl">Dauer</div></div>
+        <div class="meta-item"><div class="meta-val">Kostenlos</div><div class="meta-lbl">Erstgespr&auml;ch</div></div>
+        <div class="meta-item"><div class="meta-val">Unverbindlich</div><div class="meta-lbl">Versprochen</div></div>
+      </div>
+      <button class="cta-btn" onclick="window.open('https://asantial.de','_blank')">
+        Erstgespr&auml;ch buchen <span class="arrow">&rarr;</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 19: Schlusswort ═══ -->
+  <div class="slide" data-slide="19">
+    <div class="glow glow-lavender"></div>
+    <div class="slide-content stagger">
+      <div class="quote">&bdquo;Employer Branding muss nicht so sein,<br>wie es gerade ist. Es kann strukturiert,<br>wirksam und souver&auml;n sein.&ldquo;</div>
+      <div class="divider"></div>
+      <p style="font-size:1rem;color:rgba(247,245,240,0.4);margin-top:8px;">J&ouml;rg Schleburg &middot; 15+ Jahre Employer Branding &middot; 100+ Mittelstand-Projekte</p>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 20: Q&A ═══ -->
+  <div class="slide" data-slide="20">
+    <div class="glow glow-purple"></div>
+    <div class="glow glow-blue"></div>
+    <div class="slide-content stagger">
+      <p class="label">Q&amp;A</p>
+      <h1>Eure Fragen.</h1>
+      <div class="faq-grid" style="margin-top:24px;">
+        <div class="faq-card">
+          <div class="faq-label">H&auml;ufige Frage</div>
+          <div class="faq-q">Wie lange dauert es, bis ASANTIAL greift?</div>
+        </div>
+        <div class="faq-card">
+          <div class="faq-label">H&auml;ufige Frage</div>
+          <div class="faq-q">Brauche ich Budget-Freigabe von der GF?</div>
+        </div>
+        <div class="faq-card">
+          <div class="faq-label">H&auml;ufige Frage</div>
+          <div class="faq-q">Kann ich ASANTIAL auch alleine umsetzen?</div>
+        </div>
+        <div class="faq-card">
+          <div class="faq-label">H&auml;ufige Frage</div>
+          <div class="faq-q">F&uuml;r welche Unternehmensgr&ouml;&szlig;e ist es gedacht?</div>
+        </div>
+      </div>
+      <div class="chat-box" style="margin-top:24px;">
+        <span class="chat-icon">🙋</span>
+        <span class="chat-text">Stell deine Frage im Chat oder per Hand heben.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav-bar">
+    <div class="nav-dots" id="navDots"></div>
+    <div class="nav-right">
+      <span class="slide-num" id="slideNum">01 / 21</span>
+      <div class="nav-btns">
+        <button class="nav-btn" id="prevBtn" onclick="go(-1)">&#8592;</button>
+        <button class="nav-btn" id="nextBtn" onclick="go(1)">&#8594;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+
+  // Build dots
+  const dotsEl = document.getElementById('navDots');
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+
+  function updateNav() {
+    document.querySelectorAll('.nav-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === cur);
+      d.classList.toggle('visited', i < cur);
+    });
+    document.getElementById('slideNum').textContent =
+      String(cur + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    document.getElementById('prevBtn').disabled = cur === 0;
+    document.getElementById('nextBtn').disabled = cur === total - 1;
+  }
+
+  function goTo(idx) {
+    if (idx === cur || idx < 0 || idx >= total) return;
+    const prev = cur;
+    slides[prev].classList.remove('active');
+    slides[prev].classList.add('exit');
+    setTimeout(() => slides[prev].classList.remove('exit'), 700);
+
+    cur = idx;
+    slides[cur].classList.add('active');
+    updateNav();
+
+    // Trigger calendar animations
+    if (cur === 2) animateCal('cal-morning');
+    if (cur === 3) animateCal('cal-afternoon');
+  }
+
+  function go(dir) { goTo(cur + dir); }
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+  });
+
+  // Touch
+  let tx = 0;
+  document.addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true });
+  document.addEventListener('touchend', e => {
+    const diff = tx - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 60) go(diff > 0 ? 1 : -1);
+  }, { passive: true });
+
+  // Calendar entry animation
+  function animateCal(id) {
+    const entries = document.querySelectorAll('#' + id + ' .cal-entry');
+    entries.forEach(e => e.classList.remove('visible'));
+    entries.forEach((e, i) => {
+      setTimeout(() => e.classList.add('visible'), 200 + i * 350);
+    });
+  }
+
+  updateNav();
+</script>
+
+</body>
+</html>
