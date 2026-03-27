@@ -1586,6 +1586,14 @@
               <circle cx="25" cy="200" r="6" fill="#7b77e0"/>
             </g>
             <!-- Center text -->
+            <!-- Kreisförmiges Bild im Zentrum -->
+            <defs>
+              <clipPath id="circle-clip">
+                <circle cx="200" cy="200" r="120"/>
+              </clipPath>
+            </defs>
+            <image href="iStock-2233257780.jpeg" x="80" y="80" width="240" height="240" clip-path="url(#circle-clip)" style="opacity:0.2;"/>
+            <!-- Center text -->
             <text x="200" y="178" text-anchor="middle" font-family="'Fraunces',serif" font-size="30" font-weight="700" fill="#181229" letter-spacing="-0.02em">Die Verlegenheits-</text>
             <text x="200" y="214" text-anchor="middle" font-family="'Fraunces',serif" font-size="30" font-weight="700" fill="#181229" letter-spacing="-0.02em">Falle</text>
             <text x="200" y="255" text-anchor="middle" font-family="'Inter',sans-serif" font-size="13" fill="rgba(37,23,42,0.55)" font-weight="400">Das Dringende verdr&#228;ngt das Wichtige &#8211;</text>
