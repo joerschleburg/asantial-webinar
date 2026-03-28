@@ -1236,12 +1236,12 @@
      ═══════════════════════════════════════ */
   .logo {
     position: fixed; top: 24px; left: 32px; z-index: 100;
-    font-family: 'Inter', sans-serif; font-weight: 700;
-    font-size: 0.85rem; letter-spacing: 0.25em; text-transform: uppercase;
-    color: var(--text-light);
-    transition: color 0.5s ease;
+    transition: all 0.5s ease;
   }
-  .logo.logo-light { color: rgba(247,245,240,0.4); }
+  .logo .logo-img { height: 22px; display: none; }
+  .logo .logo-img-dark { height: 22px; display: block; }
+  .logo.logo-light .logo-img { display: block; }
+  .logo.logo-light .logo-img-dark { display: none; }
 
   .nav-bar {
     position: fixed; bottom: 0; left: 0; right: 0;
@@ -1338,7 +1338,7 @@
 <body>
 
 <div class="presentation">
-  <div class="logo" id="logo">ASANTIAL</div>
+  <div class="logo" id="logo"><img src="Asantial-Logo_weiß.png" alt="ASANTIAL" class="logo-img"><img src="Asantial-Logo-transparent.png" alt="ASANTIAL" class="logo-img-dark"></div>
 
   <!-- ═══════════════════════════════════════════
        SLIDE 0: TITEL (DARK)
