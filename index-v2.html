@@ -231,6 +231,10 @@
     animation: tag-glow-bg 2.5s ease-in-out;
     animation-delay: var(--shimmer-delay, 0s);
   }
+  @keyframes cta-pulse {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
   @keyframes tag-glow-bg {
     0%, 100% { opacity: 0; transform: scale(0.7); }
     40%, 60% { opacity: 1; transform: scale(1.1); }
@@ -2296,7 +2300,7 @@
   </div>
 
   <!-- ═══ SLIDE 20: CTA (LIGHT) ═══ -->
-  <div class="slide" data-slide="20" style="background:linear-gradient(160deg, var(--cream) 0%, #f0ecf8 50%, var(--cream) 100%);">
+  <div class="slide" data-slide="20" style="background:linear-gradient(160deg, var(--cream), #f0ecf8, #e8e0f4, #f0ecf8, var(--cream));background-size:300% 300%;animation:cta-pulse 8s ease-in-out infinite;">
     <div class="slide-content stagger">
       <p class="label">N&auml;chster Schritt</p>
       <h1 style="color:var(--text-dark);">Du hast 45&nbsp;Minuten zugeh&ouml;rt.<br>Nimm dir 30 f&uuml;r dich.</h1>
