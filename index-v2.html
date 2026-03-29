@@ -736,9 +736,9 @@
      ═══════════════════════════════════════ */
   .cards-3 {
     display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 24px; width: 100%;
-    justify-self: center;
-    align-self: stretch;
+    gap: 24px;
+    width: calc(100vw - 200px);
+    max-width: 1100px;
     margin: 0 auto;
   }
   .card {
@@ -1885,7 +1885,7 @@
       <p class="label">Sofort umsetzbar</p>
       <h2>Ein erster Schritt, den du heute gehen kannst</h2>
       <p class="subtitle" style="margin-bottom:32px;">KI kann dir helfen &ndash; auch ohne Budget, ohne Freigabe, ohne Agentur.</p>
-      <div class="cards-3" style="align-self:stretch;">
+      <div class="cards-3">
         <div class="card">
           <h3>Businessargumente</h3>
           <p>ROI und Business Case, der deine Gesch&auml;ftsf&uuml;hrung &uuml;berzeugt.</p>
