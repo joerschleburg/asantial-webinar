@@ -2580,6 +2580,16 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goNext(); }
     if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev(); }
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen();
+      }
+    }
+    if (e.key === 'Escape' && document.fullscreenElement) {
+      document.exitFullscreen();
+    }
   });
 
   // Touch
