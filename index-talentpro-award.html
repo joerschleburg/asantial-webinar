@@ -410,11 +410,11 @@
     font-size: 15px; line-height: 1.55;
     color: var(--text-dark);
     border: 1px solid var(--border-light);
-    opacity: 0;
+    opacity: 1;
   }
 
   .vf-bubble.vf-visible {
-    animation: vf-speech-float 7s ease-in-out infinite both;
+    opacity: 1;
   }
 
   .vf-bubble--left-1,.vf-bubble--left-2,.vf-bubble--left-3 {
@@ -620,9 +620,9 @@
   .relief-moment {
     position: relative;
     padding: 20px 0 28px 0;
-    opacity: 0;
-    transform: translateX(-16px);
-    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 
   .relief-moment.relief-shown {
@@ -819,13 +819,14 @@
     gap: 12px;
     width: 100%;
   }
-  /* Entry animation - tiles start hidden, fly in when slide is active */
+  /* Tiles always visible (no animation for static/PDF) */
   .app-tile {
-    opacity: 0;
-    transform: translateY(30px) scale(0.9);
+    opacity: 1;
+    transform: none;
   }
   .slide.active .app-tile {
-    animation: tile-enter 0.5s cubic-bezier(0.22,1,0.36,1) forwards, tile-breathe 4s ease-in-out 3s infinite;
+    opacity: 1;
+    transform: none;
   }
   @keyframes tile-enter {
     from { opacity: 0; transform: translateY(30px) scale(0.9); }
@@ -1311,7 +1312,7 @@
   /* ═══════════════════════════════════════
      STAGGER ANIMATION
      ═══════════════════════════════════════ */
-  .stagger > * { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .stagger > * { opacity: 1; transform: none; transition: none; }
   .slide.active .stagger > *:nth-child(1) { opacity:1; transform:none; transition-delay:0.15s; }
   .slide.active .stagger > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.25s; }
   .slide.active .stagger > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.35s; }
@@ -1405,83 +1406,9 @@
     </div>
   </div>
 
-  <!-- ═══ SLIDE 1: Einstieg ═══ -->
-  <div class="slide" data-slide="1">
-    <div class="slide-content stagger">
-      <div style="margin-bottom:24px;">
-        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="6" y="12" width="52" height="44" rx="6" stroke="var(--purple-mid)" stroke-width="2.5" fill="none"/>
-          <line x1="6" y1="24" x2="58" y2="24" stroke="var(--purple-mid)" stroke-width="2.5"/>
-          <line x1="20" y1="6" x2="20" y2="16" stroke="var(--purple-mid)" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="44" y1="6" x2="44" y2="16" stroke="var(--purple-mid)" stroke-width="2.5" stroke-linecap="round"/>
-          <rect x="16" y="31" width="8" height="6" rx="1.5" fill="var(--purple-mid)" opacity="0.25"/>
-          <rect x="28" y="31" width="8" height="6" rx="1.5" fill="var(--purple-mid)" opacity="0.4"/>
-          <rect x="40" y="31" width="8" height="6" rx="1.5" fill="var(--purple-mid)" opacity="0.25"/>
-          <rect x="16" y="42" width="8" height="6" rx="1.5" fill="var(--purple-mid)" opacity="0.15"/>
-          <rect x="28" y="42" width="8" height="6" rx="1.5" fill="var(--purple-mid)" opacity="0.25"/>
-          <rect x="40" y="42" width="8" height="6" rx="1.5" fill="var(--purple-mid)" opacity="0.15"/>
-        </svg>
-      </div>
-      <h1>Ein typischer Tag<br>im Employer Branding des Mittelstands</h1>
-      <div style="margin-top:24px;color:var(--purple-mid);font-size:2.5rem;opacity:0.75;animation:nudge-right 1.5s ease-in-out infinite;">&rarr;</div>
-    </div>
-  </div>
+  <!-- SLIDE 1 (Einstieg) entfernt – Award-Version -->
 
-  <!-- ═══ SLIDE 2: Kalender Vormittag ═══ -->
-  <div class="slide" data-slide="2">
-    <div class="slide-content" style="max-width:920px;">
-      <p class="label" style="align-self:flex-start;margin-bottom:16px;font-size:1.1rem;letter-spacing:0.18em;">Dein Kalender &middot; Vormittag</p>
-      <div class="calendar" id="cal-morning">
-        <div class="cal-entry cal-red">
-          <div class="cal-time">08:30</div>
-          <div class="cal-body"><p>Meeting m. Fachabteilung &ndash; Stelle zu besetzen, aber null Infos: Profil? Budget? Startdatum?</p></div>
-        </div>
-        <div class="cal-entry">
-          <div class="cal-time">09:15</div>
-          <div class="cal-body"><p>Jubil&auml;umsgeschenk f&uuml;r Dieter N. organisieren &ndash; Termin ist schon &uuml;bermorgen</p></div>
-        </div>
-        <div class="cal-entry cal-orange">
-          <div class="cal-time">10:00</div>
-          <div class="cal-body"><p>Call mit der Agentur &ndash; neues Kampagnenkonzept, bin unzufrieden. &Uuml;berarbeitung dauert zwei Wochen</p></div>
-        </div>
-        <div class="cal-entry">
-          <div class="cal-time">11:00</div>
-          <div class="cal-body"><p>Einstellungsgespr&auml;ch f&uuml;hren &ndash; parallel Vorbereitung Azubi-Event</p></div>
-        </div>
-        <div class="cal-entry cal-blue">
-          <div class="cal-time">11:30</div>
-          <div class="cal-body"><p>Chef fragt nach dem Status des Employer Branding-Projekts</p></div>
-        </div>
-        <div class="cal-entry cal-red">
-          <div class="cal-time">12:30</div>
-          <div class="cal-body"><p>Mittagspause? Nein &ndash; Stellenanzeigen hochladen</p></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ SLIDE 3: Kalender Nachmittag ═══ -->
-  <div class="slide" data-slide="3">
-    <div class="slide-content" style="max-width:920px;">
-      <p class="label" style="align-self:flex-start;margin-bottom:16px;font-size:1.1rem;letter-spacing:0.18em;">Dein Kalender &middot; Nachmittag</p>
-      <div class="calendar" id="cal-afternoon">
-        <div class="cal-entry">
-          <div class="cal-time">14:00</div>
-          <div class="cal-body"><p>Drei LinkedIn-Anfragen beantworten, ein Kununu-Kommentar zum Eskalieren</p></div>
-        </div>
-        <div class="cal-entry cal-orange">
-          <div class="cal-time">15:00</div>
-          <div class="cal-body"><p>Karriere-Messe &ndash; zum dritten Mal nach Budget fragen!!!</p></div>
-        </div>
-        <div class="cal-entry cal-red">
-          <div class="cal-time">16:00</div>
-          <div class="cal-body"><p>M&uuml;sste an Strategie arbeiten &ndash; stattdessen: Onboarding neuer Mitarbeiter</p></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ SLIDE: Interaktion nach Kalender ═══ -->
+  <!-- Kalender-Slides entfernt – Award-Version -->
   <!-- ═══ SLIDE: Zitat 18:00 Uhr ═══ -->
   <div class="slide dark" data-slide="quote18" style="padding:0;">
     <div style="position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;z-index:1;">
@@ -1500,16 +1427,9 @@
     </div>
   </div>
 
-  <!-- ═══ SLIDE 4: &Uuml;berleitung ═══ -->
-  <div class="slide" data-slide="4">
-    <div class="slide-content stagger">
-      <p class="label" style="font-size:1.1rem;">Das ist kein Zufall.</p>
-      <div class="divider"></div>
-      <h1>Und es liegt nicht an dir.<br>Es liegt an der Art, wie Employer Branding organisiert wird.</h1>
-    </div>
-  </div>
+  <!-- Überleitung entfernt – Award-Version -->
 
-  <!-- ═══ SLIDE 5: VERLEGENHEITS-FALLE ═══ -->
+  <!-- ═══ SLIDE: VERLEGENHEITS-FALLE ═══ -->
   <div class="slide" data-slide="5">
     <div class="slide-content" style="max-width:1350px;">
       <p class="label" style="margin-bottom:8px;font-size:1.1rem;letter-spacing:0.18em;">Das Kernproblem</p>
@@ -1585,19 +1505,9 @@
     </div>
   </div>
 
-  <!-- ═══ SLIDE: Mikro-Interaktion nach Verlegenheitsfalle ═══ -->
-  <!-- ═══ Situation 1 ═══ -->
-  <div class="slide" data-slide="sit1">
-    <div class="slide-content">
-      <div class="sit-single">
-        <div class="sit-single-num">01</div>
-        <div class="sit-single-scenario">&bdquo;Was bringt uns das konkret?&ldquo; &ndash; Spontanes Meeting mit der GF, und dir fehlt die &uuml;berzeugende Antwort.</div>
-        <div class="sit-single-title">&rarr; Die Gesch&auml;ftsf&uuml;hrungsfrage</div>
-      </div>
-    </div>
-  </div>
+  <!-- Situation 1 entfernt – Award-Version -->
 
-  <!-- ═══ SLIDE 9: Kernthese (DARK) ═══ -->
+  <!-- ═══ SLIDE: Kernthese (DARK) ═══ -->
   <div class="slide dark" data-slide="9">
     <div class="glow glow-purple"></div>
     <div class="glow glow-blue"></div>
@@ -1607,38 +1517,7 @@
     </div>
   </div>
 
-  <!-- ═══ SLIDE 10: Erkl&auml;rung ═══ -->
-  <div class="slide" data-slide="10">
-    <div class="slide-content stagger">
-      <p class="label">Die Ursache</p>
-      <h2>Projektlogik erzeugt Bewegung.<br>Aber keine Wirkung.</h2>
-      <!-- Animated progress bars that keep resetting -->
-      <div class="proj-reset-wrap" style="max-width:700px;width:100%;margin-top:40px;">
-        <div class="proj-reset-row">
-          <span class="proj-reset-label">Projekt 1</span>
-          <div class="proj-reset-track">
-            <div class="proj-reset-bar proj-reset-bar--1"></div>
-          </div>
-          <span class="proj-reset-pct proj-reset-pct--1">0%</span>
-        </div>
-        <div class="proj-reset-row">
-          <span class="proj-reset-label">Projekt 2</span>
-          <div class="proj-reset-track">
-            <div class="proj-reset-bar proj-reset-bar--2"></div>
-          </div>
-          <span class="proj-reset-pct proj-reset-pct--2">0%</span>
-        </div>
-        <div class="proj-reset-row">
-          <span class="proj-reset-label">Projekt 3</span>
-          <div class="proj-reset-track">
-            <div class="proj-reset-bar proj-reset-bar--3"></div>
-          </div>
-          <span class="proj-reset-pct proj-reset-pct--3">0%</span>
-        </div>
-        <p style="text-align:center;font-family:'Inter',sans-serif;font-size:0.85rem;color:var(--text-light);margin-top:20px;opacity:0;animation:proj-fade-in 0.6s 2s forwards;">Viel Aufwand. Kein kumulativer Fortschritt.</p>
-      </div>
-    </div>
-  </div>
+  <!-- Projektlogik entfernt – Award-Version -->
 
   <!-- ═══ SLIDE: Konsequenz ═══ -->
   <div class="slide dark" data-slide="konsequenz">
@@ -1689,55 +1568,7 @@
     </div>
   </div>
 
-  <!-- ═══ SLIDE 16: Machbar ═══ -->
-  <div class="slide dark" data-slide="16" style="overflow:hidden;">
-    <div style="position:absolute;inset:0;background:url('iStock-2258949603.jpg') center/cover no-repeat;opacity:0.5;z-index:0;"></div>
-    <div class="glow glow-purple"></div>
-    <div class="glow glow-blue"></div>
-    <div class="slide-content stagger" style="max-width:1200px;">
-      <p class="label">Der Wendepunkt</p>
-      <h1 style="margin-bottom:8px;">Das ist keine Fantasie.</h1>
-      <p class="subtitle" style="margin-bottom:48px;">Das ist machbar. Aber es braucht drei Dinge:</p>
-      <div class="wendepunkt-cards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;width:100%;">
-        <!-- Klarheit -->
-        <div class="wendepunkt-card" data-wp="0" style="display:flex;gap:16px;align-items:flex-start;padding:44px 36px 48px;border-radius:20px;background:rgba(247,245,240,0.1);border:1px solid rgba(212,196,238,0.25);backdrop-filter:blur(10px);opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.22,1,0.36,1);">
-          <div style="min-width:4px;align-self:stretch;background:var(--purple);border-radius:4px;"></div>
-          <div>
-            <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(3rem,5.5vw,4.5rem);color:rgba(247,245,240,0.25);line-height:1;margin-bottom:12px;">01</div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.8rem,3.2vw,2.6rem);color:var(--cream);margin-bottom:14px;">Klarheit</div>
-            <div style="font-family:'Inter',sans-serif;font-size:clamp(1rem,1.5vw,1.2rem);font-weight:300;color:rgba(247,245,240,0.6);line-height:1.6;">Ein strategisches Fundament, das jede Entscheidung leitet.</div>
-          </div>
-        </div>
-        <!-- Kontinuit&auml;t -->
-        <div class="wendepunkt-card" data-wp="1" style="display:flex;gap:16px;align-items:flex-start;padding:44px 36px 48px;border-radius:20px;background:rgba(247,245,240,0.1);border:1px solid rgba(212,196,238,0.25);backdrop-filter:blur(10px);opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.22,1,0.36,1);">
-          <div style="min-width:4px;align-self:stretch;background:var(--lavender);border-radius:4px;"></div>
-          <div>
-            <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(3rem,5.5vw,4.5rem);color:rgba(247,245,240,0.25);line-height:1;margin-bottom:12px;">02</div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.8rem,3.2vw,2.6rem);color:var(--cream);margin-bottom:14px;">Kontinuit&auml;t</div>
-            <div style="font-family:'Inter',sans-serif;font-size:clamp(1rem,1.5vw,1.2rem);font-weight:300;color:rgba(247,245,240,0.6);line-height:1.6;">Kein Projektmodus, sondern ein laufendes System.</div>
-          </div>
-        </div>
-        <!-- Kontrolle -->
-        <div class="wendepunkt-card" data-wp="2" style="display:flex;gap:16px;align-items:flex-start;padding:44px 36px 48px;border-radius:20px;background:rgba(247,245,240,0.1);border:1px solid rgba(212,196,238,0.25);backdrop-filter:blur(10px);opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.22,1,0.36,1);">
-          <div style="min-width:4px;align-self:stretch;background:var(--blue-sky);border-radius:4px;"></div>
-          <div>
-            <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(3rem,5.5vw,4.5rem);color:rgba(247,245,240,0.25);line-height:1;margin-bottom:12px;">03</div>
-            <div style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.8rem,3.2vw,2.6rem);color:var(--cream);margin-bottom:14px;">Kontrolle</div>
-            <div style="font-family:'Inter',sans-serif;font-size:clamp(1rem,1.5vw,1.2rem);font-weight:300;color:rgba(247,245,240,0.6);line-height:1.6;">Du steuerst den Prozess &ndash; statt getrieben zu werden.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ SLIDE: Betriebssystem-Conclusio ═══ -->
-  <div class="slide dark" data-slide="betriebssystem" style="overflow:hidden;">
-    <div style="position:absolute;inset:0;background:url('iStock-2258949603.jpg') center/cover no-repeat;opacity:0.5;z-index:0;"></div>
-    <div class="glow glow-lavender"></div>
-    <div class="slide-content stagger">
-      <h1>Daf&uuml;r braucht es ein<br><span class="highlight">Betriebssystem</span>.</h1>
-    </div>
-  </div>
+  <!-- Wendepunkt + Betriebssystem-Bridge entfernt – Award-Version -->
 
   <!-- ═══ SLIDE 17: ASANTIAL Intro ═══ -->
   <div class="slide" data-slide="17" style="background:linear-gradient(160deg, var(--cream) 0%, #f0ecf8 50%, var(--cream) 100%);">
@@ -1903,192 +1734,116 @@
     </div>
   </div>
 
-  <!-- ═══ SLIDE: Bewertungskriterien ═══ -->
-  <div class="slide dark" data-slide="kriterien" style="overflow:hidden;">
+  <!-- ═══ KRITERIUM 1: ORIGINALITÄT ═══ -->
+  <div class="slide dark" data-slide="k-originalitaet" style="overflow:hidden;">
     <div class="glow glow-purple"></div>
     <div class="glow glow-blue"></div>
-    <div class="slide-content stagger">
-      <p class="label">TALENTpro Award &middot; Bewertungskriterien</p>
-      <h1>Warum ASANTIAL<br>diesen Award verdient.</h1>
+    <div class="slide-content stagger" style="max-width:1100px;">
+      <p class="label">Kriterium 1 von 4</p>
+      <h1>Originalit&auml;t</h1>
       <div class="divider"></div>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:32px;max-width:960px;width:100%;margin-top:16px;">
-        <div style="background:rgba(163,160,255,0.08);border:1px solid rgba(163,160,255,0.2);border-radius:16px;padding:28px;">
-          <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--purple);margin-bottom:10px;">Originalit&auml;t</div>
-          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--cream);margin-bottom:8px;">Selbstdisruption als Gesch&auml;ftsmodell</div>
-          <div style="font-size:0.85rem;color:rgba(247,245,240,0.6);line-height:1.6;">Eine etablierte EB-Agentur kannibalisiert bewusst ihr eigenes Gesch&auml;ftsmodell. 15 Jahre Praxis in reproduzierbare KI-Logik &uuml;berf&uuml;hrt &ndash; kein generisches Tool, sondern fachspezifisches Betriebssystem.</div>
-        </div>
-        <div style="background:rgba(163,160,255,0.08);border:1px solid rgba(163,160,255,0.2);border-radius:16px;padding:28px;">
-          <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--purple);margin-bottom:10px;">Ressourceneinsatz</div>
-          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--cream);margin-bottom:8px;">Eigenfinanziert. Lean. Marktreif.</div>
-          <div style="font-size:0.85rem;color:rgba(247,245,240,0.6);line-height:1.6;">Komplett bootstrapped aus Agenturumsatz. 3-Personen-Kernteam. 28 spezialisierte Apps live. DSGVO-konform auf EU-Servern. Kein VC, kein Overhead.</div>
-        </div>
-        <div style="background:rgba(163,160,255,0.08);border:1px solid rgba(163,160,255,0.2);border-radius:16px;padding:28px;">
-          <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--purple);margin-bottom:10px;">Au&szlig;enwirkung</div>
-          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--cream);margin-bottom:8px;">110.000 Unternehmen. Ein unbesetzter Markt.</div>
-          <div style="font-size:0.85rem;color:rgba(247,245,240,0.6);line-height:1.6;">Erster Anbieter, der Strategie, Umsetzung und KI in einem EB-spezifischen System vereint. Zielgruppe: Mittelstand 50&ndash;1.500 MA. Medienpr&auml;senz: ARD, ZDF, Deutschlandfunk, SZ, WELT.</div>
-        </div>
-        <div style="background:rgba(163,160,255,0.08);border:1px solid rgba(163,160,255,0.2);border-radius:16px;padding:28px;">
-          <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--purple);margin-bottom:10px;">Innenwirkung</div>
-          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--cream);margin-bottom:8px;">Von Verlegenheitsl&ouml;sungen zu Struktur.</div>
-          <div style="font-size:0.85rem;color:rgba(247,245,240,0.6);line-height:1.6;">HR-Verantwortliche gewinnen Kontrolle zur&uuml;ck: Roadmap in Minuten statt Wochen. Argumentationssicherheit gegen&uuml;ber der GF. Alle Ergebnisse bauen aufeinander auf &ndash; kein Projektmodus mehr.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ SLIDE: Marktpotenzial ═══ -->
-  <div class="slide" data-slide="markt">
-    <div class="slide-content stagger">
-      <p class="label">Marktpotenzial</p>
-      <h2>110.000 Unternehmen.<br>Ein unbesetzter Markt.</h2>
-      <div class="divider"></div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:960px;width:100%;margin-top:24px;">
-        <div style="text-align:center;">
-          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(2.5rem,5vw,3.5rem);color:var(--purple-mid);">110K</div>
-          <div style="font-size:0.9rem;color:var(--text-muted);margin-top:4px;">Unternehmen<br>50&ndash;1.500 MA in Deutschland</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(2.5rem,5vw,3.5rem);color:var(--purple-mid);">1,73M</div>
-          <div style="font-size:0.9rem;color:var(--text-muted);margin-top:4px;">offene Stellen<br>in Deutschland (BA, 2025)</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(2.5rem,5vw,3.5rem);color:var(--purple-mid);">2,75M&euro;</div>
-          <div style="font-size:0.9rem;color:var(--text-muted);margin-top:4px;">Umsatzpotenzial/Jahr<br>bei 0,5% Marktdurchdringung</div>
-        </div>
-      </div>
-      <p class="body-text" style="margin-top:32px;">Kein direkter Wettbewerber vereint Strategie, Umsetzung und KI<br>in einem EB-spezifischen Betriebssystem.</p>
-    </div>
-  </div>
-
-  <!-- ═══ SLIDE: Team ═══ -->
-  <div class="slide" data-slide="team">
-    <div class="slide-content stagger">
-      <p class="label">Das Team</p>
-      <h2>Erfahrung trifft System.</h2>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:900px;width:100%;margin-top:32px;">
-        <div style="text-align:center;">
-          <div style="width:120px;height:120px;border-radius:50%;margin:0 auto 16px;overflow:hidden;"><img src="Joerg-Schleburg1528-4500-neu-1_quer-scaled_3.jpg" alt="Jörg Schleburg" style="width:100%;height:100%;object-fit:cover;object-position:center top;"></div>
-          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--text-dark);">J&ouml;rg Schleburg</div>
-          <div style="font-size:0.85rem;color:var(--purple-mid);font-weight:600;margin:4px 0;">Gr&uuml;nder &amp; CEO</div>
-          <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.5;">15+ Jahre Employer Branding<br>100+ Mittelstand-Projekte<br>Podcast &raquo;scharf &amp; sinnig&laquo;</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="width:120px;height:120px;border-radius:50%;margin:0 auto 16px;overflow:hidden;"><img src="Dr-Simon-Mamerow-2.jpg" alt="Dr. Simon Mamerow" style="width:100%;height:100%;object-fit:cover;object-position:center top;"></div>
-          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--text-dark);">Dr. Simon Mamerow</div>
-          <div style="font-size:0.85rem;color:var(--purple-mid);font-weight:600;margin:4px 0;">Head of Strategy</div>
-          <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.5;">Wissenschaftlicher Beirat<br>Strategische Tiefe<br>Podcast &raquo;scharf &amp; sinnig&laquo;</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="width:120px;height:120px;border-radius:50%;margin:0 auto 16px;overflow:hidden;"><img src="1641481241608-2.jpeg" alt="Stefanie Nürnberger" style="width:100%;height:100%;object-fit:cover;object-position:center top;"></div>
-          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--text-dark);">Stefanie N&uuml;rnberger</div>
-          <div style="font-size:0.85rem;color:var(--purple-mid);font-weight:600;margin:4px 0;">Kommunikation</div>
-          <div style="font-size:0.82rem;color:var(--text-muted);line-height:1.5;">Medienarbeit<br>Outreach &amp; Community<br>Influencer-Ansprache</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ SLIDE: Pricing ═══ -->
-  <div class="slide dark" data-slide="pricing" style="overflow:hidden;">
-    <div class="slide-content stagger" style="max-width:1200px;align-items:flex-start;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;width:100%;align-items:start;">
-        <!-- Left column -->
+      <h3 style="color:var(--cream);text-align:center;margin-bottom:24px;font-size:clamp(1.3rem,2.5vw,1.8rem);">Selbstdisruption als Gesch&auml;ftsmodell</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;width:100%;margin-top:16px;">
         <div>
-          <p style="font-family:'Inter',sans-serif;font-weight:700;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--purple);margin-bottom:20px;">ASANTIAL <span style="font-style:italic;letter-spacing:0.05em;text-transform:none;">Professional</span></p>
-          <h2 style="text-align:left;color:var(--cream);margin-bottom:28px;line-height:1.1;">Deine t&auml;gliche<br>Arbeitsgrundlage.</h2>
-          <p style="font-family:'Inter',sans-serif;font-size:clamp(0.85rem,1.2vw,1rem);font-weight:300;color:rgba(247,245,240,0.6);line-height:1.7;max-width:480px;">Alle Analyse-, Strategie- und Umsetzungs-Apps in einem Zugang. Kein Einzelprojekt mit Enddatum &ndash; sondern die Arbeitsumgebung, in der Employer Branding dauerhaft gesteuert wird. DSGVO-konform. Ergebnisse, die aufeinander aufbauen. Und Argumentationssicherheit, wenn die Gesch&auml;ftsf&uuml;hrung fragt.</p>
-          <div style="margin-top:36px;padding-top:28px;border-top:1px solid rgba(247,245,240,0.1);display:flex;align-items:baseline;gap:8px;">
-            <span style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(247,245,240,0.4);">ab</span>
-            <span style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(3rem,6vw,4.5rem);color:var(--cream);line-height:1;">497</span>
-            <span style="font-family:'Inter',sans-serif;font-size:1.4rem;color:var(--cream);font-weight:300;">&euro;</span>
-            <span style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(247,245,240,0.4);">/ Monat</span>
-          </div>
+          <p style="font-family:'Inter',sans-serif;font-size:clamp(0.95rem,1.3vw,1.1rem);font-weight:300;color:rgba(247,245,240,0.75);line-height:1.8;">
+            VonVorteil &ndash; eine seit 15 Jahren etablierte Employer-Branding-Agentur &ndash; kannibalisiert <strong style="color:var(--cream);font-weight:600;">bewusst ihr eigenes Gesch&auml;ftsmodell</strong>. Was Agenturen bisher in monatelangen Projekten f&uuml;r 30.000&ndash;80.000&thinsp;&euro; liefern, macht ASANTIAL als KI-gest&uuml;tztes System dauerhaft zug&auml;nglich &ndash; ab 497&thinsp;&euro;/Monat.
+          </p>
         </div>
-        <!-- Right column -->
-        <div style="display:flex;flex-direction:column;gap:0;padding-top:60px;">
-          <div style="padding:24px 0;border-top:1px solid rgba(247,245,240,0.1);display:flex;align-items:flex-start;gap:16px;">
-            <div style="width:28px;height:2px;background:var(--purple);margin-top:10px;flex-shrink:0;"></div>
-            <p style="font-family:'Inter',sans-serif;font-size:clamp(0.95rem,1.4vw,1.15rem);font-weight:500;color:var(--cream);line-height:1.45;">Struktur statt Einzelimpulse.</p>
-          </div>
-          <div style="padding:24px 0;border-top:1px solid rgba(247,245,240,0.1);display:flex;align-items:flex-start;gap:16px;">
-            <div style="width:28px;height:2px;background:var(--purple);margin-top:10px;flex-shrink:0;"></div>
-            <p style="font-family:'Inter',sans-serif;font-size:clamp(0.95rem,1.4vw,1.15rem);font-weight:500;color:var(--cream);line-height:1.45;">Ergebnisse, die anschlussf&auml;hig sind.</p>
-          </div>
-          <div style="padding:24px 0;border-top:1px solid rgba(247,245,240,0.1);border-bottom:1px solid rgba(247,245,240,0.1);display:flex;align-items:flex-start;gap:16px;">
-            <div style="width:28px;height:2px;background:var(--purple);margin-top:10px;flex-shrink:0;"></div>
-            <p style="font-family:'Inter',sans-serif;font-size:clamp(0.95rem,1.4vw,1.15rem);font-weight:500;color:var(--cream);line-height:1.45;">R&uuml;ckhalt f&uuml;r HR-Verantwortliche, die Verantwortung tragen.</p>
-          </div>
+        <div>
+          <p style="font-family:'Inter',sans-serif;font-size:clamp(0.95rem,1.3vw,1.1rem);font-weight:300;color:rgba(247,245,240,0.75);line-height:1.8;">
+            ASANTIAL ist <strong style="color:var(--cream);font-weight:600;">kein generisches KI-Tool</strong>. Jede der 28 Apps basiert auf erprobten Beratungslogiken, die in reproduzierbare Prozesse &uuml;berf&uuml;hrt wurden. Es gibt kein vergleichbares Produkt am Markt, das Strategie, Umsetzung und Controlling f&uuml;r Employer Branding in einem fachspezifischen System vereint.
+          </p>
         </div>
       </div>
     </div>
-    <!-- PROFESSIONAL Watermark -->
-    <div style="position:absolute;bottom:-30px;left:0;right:0;font-family:'Fraunces',serif;font-weight:900;font-size:clamp(8rem,15vw,14rem);color:rgba(247,245,240,0.03);text-align:center;letter-spacing:0.05em;pointer-events:none;line-height:1;text-transform:uppercase;">PROFESSIONAL</div>
   </div>
 
-  <!-- ═══ SLIDE: Vergleichstabelle (entfernt in V2) ═══
-       Apps und Vergleichstabelle entfernt, um Produkt-Block zu entschärfen.
-       Inhalte können bei Bedarf in der FAQ-Phase mündlich adressiert werden. -->
-
-  <!--
-  <div class="slide" data-slide="compare">
-    <div class="slide-content stagger" style="max-width:1150px;">
-      <p class="label">Warum ASANTIAL</p>
-      <h2 style="margin-bottom:32px;">Drei Wege. Ein klarer Unterschied.</h2>
-      <table style="width:100%;border-collapse:separate;border-spacing:0;font-family:'Inter',sans-serif;font-size:clamp(0.72rem,1vw,0.88rem);">
-        <thead>
-          <tr>
-            <th style="width:22%;padding:16px 20px;text-align:left;"></th>
-            <th style="width:26%;padding:16px 20px;text-align:left;border:1px solid var(--border-med);border-radius:12px 12px 0 0;background:rgba(37,23,42,0.02);">
-              <div style="font-weight:700;font-size:0.9rem;color:var(--text-dark);">Klassische Methoden</div>
-              <div style="font-weight:400;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-light);margin-top:2px;">Agentur &middot; Beratung &middot; Intern</div>
-            </th>
-            <th style="width:26%;padding:16px 20px;text-align:left;border:1px solid var(--border-med);border-radius:12px 12px 0 0;background:rgba(37,23,42,0.02);">
-              <div style="font-weight:700;font-size:0.9rem;color:#c0392b;">Generische KI-Tools</div>
-              <div style="font-weight:400;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-light);margin-top:2px;">ChatGPT &middot; Copilot &middot; Gemini</div>
-            </th>
-            <th style="width:26%;padding:16px 20px;text-align:left;border-radius:12px 12px 0 0;background:var(--ink);color:var(--cream);">
-              <div style="font-weight:700;font-size:0.9rem;">ASANTIAL</div>
-              <div style="font-weight:400;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-top:2px;">KI &middot; Expertise &middot; System</div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:14px 20px;font-weight:600;color:var(--text-dark);border-bottom:1px solid var(--border-light);">EB-Expertise</td>
-            <td style="padding:14px 20px;color:var(--text-muted);border:1px solid var(--border-light);border-top:none;background:rgba(37,23,42,0.01);"><span style="color:#e8a040;">&#10003;</span> Vorhanden &ndash; aber projektbezogen, nicht skalierbar</td>
-            <td style="padding:14px 20px;color:var(--text-muted);border:1px solid var(--border-light);border-top:none;background:rgba(37,23,42,0.01);"><span style="color:#c0392b;">&#10007;</span> Nicht vorhanden &ndash; allgemein trainiert, kein Fachfokus</td>
-            <td style="padding:14px 20px;background:var(--ink);color:rgba(247,245,240,0.9);"><span style="color:var(--purple);">&#10003;</span> 15 Jahre Erfahrung direkt ins System eingebaut</td>
-          </tr>
-          <tr>
-            <td style="padding:14px 20px;font-weight:600;color:var(--text-dark);border-bottom:1px solid var(--border-light);">DSGVO</td>
-            <td style="padding:14px 20px;color:var(--text-muted);border:1px solid var(--border-light);border-top:none;background:rgba(37,23,42,0.01);"><span style="color:#e8a040;">~</span> Abh&auml;ngig vom Anbieter &ndash; oft unklar</td>
-            <td style="padding:14px 20px;color:var(--text-muted);border:1px solid var(--border-light);border-top:none;background:rgba(37,23,42,0.01);"><span style="color:#c0392b;">&#10007;</span> Kritisch &ndash; Daten auf US-Servern, keine Garantien</td>
-            <td style="padding:14px 20px;background:var(--ink);color:rgba(247,245,240,0.9);"><span style="color:var(--purple);">&#10003;</span> Vollst&auml;ndig DSGVO-konform, deutsche Server</td>
-          </tr>
-          <tr>
-            <td style="padding:14px 20px;font-weight:600;color:var(--text-dark);border-bottom:1px solid var(--border-light);">Halluzination</td>
-            <td style="padding:14px 20px;color:var(--text-muted);border:1px solid var(--border-light);border-top:none;background:rgba(37,23,42,0.01);"><span style="color:#27ae60;">&#10003;</span> Kein Risiko &ndash; menschliche Expertise</td>
-            <td style="padding:14px 20px;color:var(--text-muted);border:1px solid var(--border-light);border-top:none;background:rgba(37,23,42,0.01);"><span style="color:#c0392b;">&#10007;</span> Hoch &ndash; erfindet Fakten, Studien, Quellen</td>
-            <td style="padding:14px 20px;background:var(--ink);color:rgba(247,245,240,0.9);"><span style="color:var(--purple);">&#10003;</span> Minimiert durch fachspezifisches Training</td>
-          </tr>
-          <tr>
-            <td style="padding:14px 20px;font-weight:600;color:var(--text-dark);border-bottom:1px solid var(--border-light);">Struktur</td>
-            <td style="padding:14px 20px;color:var(--text-muted);border:1px solid var(--border-light);border-top:none;background:rgba(37,23,42,0.01);"><span style="color:#e8a040;">~</span> Gut &ndash; aber nur im Projekt, danach weg</td>
-            <td style="padding:14px 20px;color:var(--text-muted);border:1px solid var(--border-light);border-top:none;background:rgba(37,23,42,0.01);"><span style="color:#c0392b;">&#10007;</span> Keine &ndash; jede Anfrage beginnt bei null</td>
-            <td style="padding:14px 20px;background:var(--ink);color:rgba(247,245,240,0.9);"><span style="color:var(--purple);">&#10003;</span> Durchg&auml;ngige Wirkungslogik, Ergebnisse bauen auf</td>
-          </tr>
-          <tr>
-            <td style="padding:14px 20px;font-weight:600;color:var(--text-dark);">Steuerbarkeit</td>
-            <td style="padding:14px 20px;color:var(--text-muted);border:1px solid var(--border-light);border-top:none;border-radius:0 0 0 0;background:rgba(37,23,42,0.01);"><span style="color:#c0392b;">&#10007;</span> Agenturabh&auml;ngigkeit &ndash; Wissen geht mit</td>
-            <td style="padding:14px 20px;color:var(--text-muted);border:1px solid var(--border-light);border-top:none;border-radius:0 0 0 0;background:rgba(37,23,42,0.01);"><span style="color:#e8a040;">~</span> Vorhanden &ndash; aber ohne Fachlogik</td>
-            <td style="padding:14px 20px;background:var(--ink);color:rgba(247,245,240,0.9);border-radius:0 0 12px 12px;"><span style="color:var(--purple);">&#10003;</span> HR beh&auml;lt die Kontrolle &ndash; intern steuerbar</td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- ═══ KRITERIUM 2: RESSOURCENEINSATZ ═══ -->
+  <div class="slide" data-slide="k-ressourcen">
+    <div class="slide-content stagger" style="max-width:1100px;">
+      <p class="label">Kriterium 2 von 4</p>
+      <h2>Ressourceneinsatz</h2>
+      <div class="divider"></div>
+      <h3 style="text-align:center;margin-bottom:32px;font-size:clamp(1.3rem,2.5vw,1.8rem);">Eigenfinanziert. Lean. Marktreif.</h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:960px;width:100%;">
+        <div style="text-align:center;">
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(2.5rem,5vw,3.5rem);color:var(--purple-mid);">0&thinsp;&euro;</div>
+          <div style="font-size:0.9rem;color:var(--text-muted);margin-top:4px;line-height:1.5;">Fremdkapital<br>Komplett bootstrapped<br>aus Agenturumsatz</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(2.5rem,5vw,3.5rem);color:var(--purple-mid);">3</div>
+          <div style="font-size:0.9rem;color:var(--text-muted);margin-top:4px;line-height:1.5;">Personen Kernteam<br>Strategie, Wissenschaft<br>&amp; Kommunikation</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(2.5rem,5vw,3.5rem);color:var(--purple-mid);">28</div>
+          <div style="font-size:0.9rem;color:var(--text-muted);margin-top:4px;line-height:1.5;">Spezialisierte Apps live<br>DSGVO-konform<br>auf EU-Servern</div>
+        </div>
+      </div>
+      <p class="body-text" style="margin-top:32px;">Kein VC, kein Overhead, keine Abh&auml;ngigkeit. Die Effizienz der KI wird an die Kunden weitergegeben &ndash; nicht in Margen verwandelt.</p>
     </div>
   </div>
 
-  -->
+  <!-- ═══ KRITERIUM 3: AUSSENWIRKUNG ═══ -->
+  <div class="slide dark" data-slide="k-aussenwirkung" style="overflow:hidden;">
+    <div class="glow glow-purple"></div>
+    <div class="glow glow-blue"></div>
+    <div class="slide-content stagger" style="max-width:1100px;">
+      <p class="label">Kriterium 3 von 4</p>
+      <h1>Au&szlig;enwirkung</h1>
+      <div class="divider"></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:960px;width:100%;margin-top:16px;">
+        <div style="text-align:center;">
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3rem);color:var(--cream);">110K</div>
+          <div style="font-size:0.85rem;color:rgba(247,245,240,0.6);margin-top:4px;">Zielmarkt: Unternehmen<br>50&ndash;1.500 MA in Deutschland</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3rem);color:var(--cream);">1,73M</div>
+          <div style="font-size:0.85rem;color:rgba(247,245,240,0.6);margin-top:4px;">offene Stellen<br>in Deutschland (BA, 2025)</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3rem);color:var(--cream);">2,75M&euro;</div>
+          <div style="font-size:0.85rem;color:rgba(247,245,240,0.6);margin-top:4px;">Umsatzpotenzial/Jahr<br>bei 0,5% Marktdurchdringung</div>
+        </div>
+      </div>
+      <div style="margin-top:32px;max-width:800px;">
+        <p style="font-family:'Inter',sans-serif;font-size:clamp(0.95rem,1.3vw,1.1rem);font-weight:300;color:rgba(247,245,240,0.75);line-height:1.8;text-align:center;">
+          Erster Anbieter, der Strategie, Umsetzung und KI in einem EB-spezifischen System vereint. Kein direkter Wettbewerber. Medienpr&auml;senz des Gr&uuml;nders: ARD MOMA, ZDF heute, Deutschlandfunk, S&uuml;ddeutsche Zeitung, WELT, SWR3.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ KRITERIUM 4: INNENWIRKUNG ═══ -->
+  <div class="slide" data-slide="k-innenwirkung">
+    <div class="slide-content stagger" style="max-width:1100px;">
+      <p class="label">Kriterium 4 von 4</p>
+      <h2>Innenwirkung</h2>
+      <div class="divider"></div>
+      <h3 style="text-align:center;margin-bottom:28px;font-size:clamp(1.3rem,2.5vw,1.8rem);">Von Verlegenheitsl&ouml;sungen zu Struktur.</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;width:100%;margin-top:8px;">
+        <div>
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.15rem;color:var(--purple-mid);margin-bottom:12px;">Ohne ASANTIAL</div>
+          <ul style="font-family:'Inter',sans-serif;font-size:0.95rem;color:var(--text-muted);line-height:2;list-style:none;padding:0;">
+            <li style="padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#c0392b;">&#10007;</span> Jede Aufgabe beginnt bei null</li>
+            <li style="padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#c0392b;">&#10007;</span> Kein Nachweis gegen&uuml;ber der GF</li>
+            <li style="padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#c0392b;">&#10007;</span> Kampagnen dauern Wochen</li>
+            <li style="padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#c0392b;">&#10007;</span> Wissen geht mit der Agentur</li>
+            <li style="padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#c0392b;">&#10007;</span> Strategie bleibt Theorie</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-family:'Fraunces',serif;font-weight:700;font-size:1.15rem;color:var(--purple-mid);margin-bottom:12px;">Mit ASANTIAL</div>
+          <ul style="font-family:'Inter',sans-serif;font-size:0.95rem;color:var(--text-dark);line-height:2;list-style:none;padding:0;">
+            <li style="padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:var(--purple-mid);">&#10003;</span> Ergebnisse bauen aufeinander auf</li>
+            <li style="padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:var(--purple-mid);">&#10003;</span> Roadmap in 13 Minuten</li>
+            <li style="padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:var(--purple-mid);">&#10003;</span> Kampagnenkonzept in 25 Minuten</li>
+            <li style="padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:var(--purple-mid);">&#10003;</span> Wissen bleibt im Unternehmen</li>
+            <li style="padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:var(--purple-mid);">&#10003;</span> HR steuert selbst &ndash; mit System</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ═══ SLIDE: CTA (DARK) ═══ -->
   <div class="slide dark" data-slide="19">
