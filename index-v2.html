@@ -2658,69 +2658,7 @@
     if (Math.abs(diff) > 60) { diff > 0 ? goNext() : goPrev(); }
   }, { passive: true });
 
-  // App tile shuffle animation
-  (function(){
-    const allApps = [
-      {cat:'Analyse',name:'Arbeitsmarktanalyse'},{cat:'Analyse',name:'Karriereseitenanalyse'},
-      {cat:'Analyse',name:'Wettbewerbsanalyse'},{cat:'Analyse',name:'Zielgruppeninsides'},
-      {cat:'Analyse',name:'EVP-Analyse',pro:true},{cat:'Strategie',name:'Start- & Navi-App'},
-      {cat:'Strategie',name:'Kick-Off Workshop'},{cat:'Strategie',name:'Kick-Off Auswertung'},
-      {cat:'Strategie',name:'EVP-Entwicklung',pro:true},{cat:'Strategie',name:'Arbeitgeberclaim',pro:true},
-      {cat:'Strategie',name:'F\u00fchrungsabgleich',pro:true},{cat:'Strategie',name:'Positionierungsmatrix'},
-      {cat:'Umsetzung',name:'Projektmanager'},{cat:'Umsetzung',name:'Roadmap'},
-      {cat:'Umsetzung',name:'Kanalstrategie'},{cat:'Umsetzung',name:'Content-Planer'},
-      {cat:'Umsetzung',name:'Stellenanzeigen'},{cat:'Umsetzung',name:'Social Content'},
-      {cat:'Umsetzung',name:'Karriereseitentexte'},{cat:'Kommunikation',name:'Businessargumente'},
-      {cat:'Kommunikation',name:'GF-Pr\u00e4sentation'},{cat:'Kommunikation',name:'Stakeholder-Briefing'},
-      {cat:'Kommunikation',name:'Reporting'},{cat:'Forschung',name:'Befragungsdesign'},
-      {cat:'Forschung',name:'Ergebnisauswertung'},{cat:'Controlling',name:'KPI-Dashboard'},
-      {cat:'Controlling',name:'Wirkungsmessung'},{cat:'Controlling',name:'Budgetplanung'}
-    ];
-    const catClass = {Analyse:'analyse',Strategie:'strategie',Umsetzung:'umsetzung',Kommunikation:'komm',Forschung:'forschung',Controlling:'controlling'};
-    const appSlide = document.querySelector('[data-slide="alle-apps"]');
-    if(!appSlide) return;
-    const tiles = appSlide.querySelectorAll('.app-tile');
-    let shuffleInterval;
-
-    function shuffleTile(){
-      const idx = Math.floor(Math.random()*tiles.length);
-      const tile = tiles[idx];
-      const app = allApps[Math.floor(Math.random()*allApps.length)];
-      tile.style.transition = 'opacity 0.4s, transform 0.4s';
-      tile.style.opacity = '0';
-      tile.style.transform = 'translateY(-10px) scale(0.95)';
-      setTimeout(()=>{
-        tile.querySelector('.app-tile__cat').textContent = app.cat;
-        tile.querySelector('.app-tile__name').textContent = app.name;
-        // Update category class
-        Object.values(catClass).forEach(c => tile.classList.remove('app-tile--'+c));
-        tile.classList.add('app-tile--'+(catClass[app.cat]||'analyse'));
-        // Update border color
-        if(app.pro && !tile.classList.contains('app-tile--premium')) tile.classList.add('app-tile--premium');
-        else if(!app.pro) tile.classList.remove('app-tile--premium');
-        tile.style.opacity = '1';
-        tile.style.transform = 'translateY(0) scale(1)';
-      }, 400);
-    }
-
-    // Watch for slide becoming active
-    const observer = new MutationObserver(()=>{
-      if(appSlide.classList.contains('active')){
-        clearInterval(shuffleInterval);
-        // Start shuffling after entry animation completes
-        setTimeout(()=>{
-          shuffleInterval = setInterval(()=>{
-            shuffleTile();
-            // Sometimes shuffle 2 at once
-            if(Math.random()>0.5) setTimeout(shuffleTile, 200);
-          }, 1800);
-        }, 3000);
-      } else {
-        clearInterval(shuffleInterval);
-      }
-    });
-    observer.observe(appSlide, {attributes:true, attributeFilter:['class']});
-  })();
+  // App tile shuffle animation removed – tiles now stay static with correct app names
 
   // Verlegenheitsfalle animation
   function animateVF() {
